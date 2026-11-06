@@ -1,0 +1,99 @@
+<!-- ============================================ -->
+<!--                 Navigation                   -->
+<!-- ============================================ -->
+
+<header id="cs-navigation">
+    <div class="cs-container">
+        <!--Nav Logo-->
+        <a href="/" class="cs-logo" aria-label="Grindhouse home page">
+            <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/grindhouse-logo.png" alt="" width="256" height="92" aria-hidden="true" decoding="async">
+        </a>
+        <!--Navigation List-->
+        <nav class="cs-nav" aria-label="main navigation">
+            <!--Mobile Nav Toggle-->
+            <button class="cs-toggle" id="cs-toggle" aria-expanded="false" aria-controls="cs-ul-wrapper" aria-label="mobile menu toggle" aria-haspopup="menu">
+                <span class="cs-box" aria-hidden="true">
+                    <span class="cs-line cs-line1" aria-hidden="true"></span>
+                    <span class="cs-line cs-line2" aria-hidden="true"></span>
+                    <span class="cs-line cs-line3" aria-hidden="true"></span>
+                </span>
+            </button>
+            <!-- We need a wrapper div so we can set a fixed height on the cs-ul in case the nav list gets too long from too many dropdowns being opened and needs to have an overflow scroll. This wrapper acts as the background so it can go the full height of the screen and not cut off any overflowing nav items while the cs-ul stops short of the bottom of the screen, which keeps all nav items in view no matter how mnay there are-->
+            <div class="cs-ul-wrapper" id="cs-ul-wrapper">
+                <ul id="cs-expanded" class="cs-ul">
+                    <li class="cs-li">
+                        <a href="/" class="cs-li-link {% if page.url == "/" %} cs-active {% endif %}" {% if page.url == "/" %} aria-current="page" {% endif %}>
+                            Home
+                        </a>
+                    </li>
+                    <li class="cs-li">
+                        <a href="/#brand-statement" class="cs-li-link">
+                            About
+                        </a>
+                    </li>
+                    <li class="cs-li cs-dropdown">
+                        <button class="cs-li-link cs-dropdown-toggle" aria-haspopup="menu" aria-expanded="false" id="training-dropdown-toggle">
+                            Training
+                        </button>
+                        <ul class="cs-drop-ul" aria-labelledby="training-dropdown-toggle">
+                            <li class="cs-drop-li">
+                                <a href="#" class="cs-li-link cs-drop-link">
+                                    <picture class="cs-drop-picture" aria-hidden="true">
+                                        <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/semi-private-programs.jpg" alt="" width="400" height="280" loading="lazy" decoding="async">
+                                    </picture>
+                                    <span class="cs-drop-content">
+                                        <span class="cs-drop-title">Semi-Private Training</span>
+                                        <span class="cs-drop-desc">Small-group coaching with a coach who knows your name and your numbers.</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="cs-drop-li">
+                                <a href="#" class="cs-li-link cs-drop-link">
+                                    <picture class="cs-drop-picture" aria-hidden="true">
+                                        <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/private-coaching.jpg" alt="" width="400" height="280" loading="lazy" decoding="async">
+                                    </picture>
+                                    <span class="cs-drop-content">
+                                        <span class="cs-drop-title">Private Coaching</span>
+                                        <span class="cs-drop-desc">One-on-one programming built entirely around your goals.</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="cs-drop-li">
+                                <a href="#" class="cs-li-link cs-drop-link">
+                                    <picture class="cs-drop-picture" aria-hidden="true">
+                                        <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/running-%26-hybrid-programs.jpg" alt="" width="400" height="280" loading="lazy" decoding="async">
+                                    </picture>
+                                    <span class="cs-drop-content">
+                                        <span class="cs-drop-title">Running &amp; Hybrid Programs</span>
+                                        <span class="cs-drop-desc">Engine and strength, trained together for race day and beyond.</span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="cs-li">
+                        <a href="/#memberships" class="cs-li-link">
+                            Memberships
+                        </a>
+                    </li>
+                    <li class="cs-li">
+                        <a href="#" class="cs-li-link">
+                            Schedule
+                        </a>
+                    </li>
+                    <li class="cs-li">
+                        <a href="/#cs-footer-275" class="cs-li-link">
+                            Contact
+                        </a>
+                    </li>
+                    <li class="cs-li cs-hide-on-desktop">
+                        <a href="#" class="cs-li-link">
+                            Book Trial
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <a href="#" class="cs-button-solid cs-nav-button">Book Trial</a>
+    </div>
+</header>

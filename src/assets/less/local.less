@@ -1,0 +1,2874 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// HOME PAGE STYLES
+// Below-the-fold styles for the homepage that load after critical styles.
+// The first section of the home page should go in critical.less, while the
+// rest of the home page styles go in here.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/*-- -------------------------- -->
+<---   Light section texture    -->
+<--- -------------------------- -*/
+
+/* Paper grain texture on every light section - multiplied over Light Grey so the colour stays on palette */
+#brand-statement,
+#experience,
+#featured-story,
+#faq {
+    background-image: var(--paperTexture);
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+}
+
+/*-- -------------------------- -->
+<---      Brand Statement       -->
+<--- -------------------------- -*/
+
+/* Mobile - 360px */
+@media only screen and (min-width: 0rem) {
+    #brand-statement {
+        /* 32px - 56px top (it follows straight on from the hero), 80px - 128px bottom.
+           Same paper background as the hero stage (see "Light section texture" above). */
+        padding: clamp(2rem, 4vw, 3.5rem) 0 clamp(5rem, 9vw, 8rem);
+        /* scroll-linked drift for the photos, set by hero.js (-1 entering, 0 centred, 1 leaving) */
+        --drift: 0;
+        background-color: var(--lightGrey);
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+
+        /* Film grain - same flickering noise as the hero stage */
+        &:before {
+            content: "";
+            width: 200%;
+            height: 200%;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+            background-size: (150/16rem) (150/16rem);
+            opacity: 0.18;
+            mix-blend-mode: multiply;
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            z-index: 0;
+            pointer-events: none;
+            animation: brand-grain 0.8s steps(6) infinite;
+        }
+
+        .cs-container {
+            width: 100%;
+            /* 1280px content + the 16px side padding, so it lines up with the other sections */
+            max-width: (1312/16rem);
+            margin: auto;
+            padding: 0 (16/16rem);
+            box-sizing: border-box;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cs-topper {
+            margin-bottom: (20/16rem);
+            color: var(--primary);
+        }
+
+        .cs-intro {
+            /* 40px - 64px above the photos */
+            margin-bottom: clamp(2.5rem, 5vw, 4rem);
+            display: flex;
+            flex-direction: column;
+            gap: (20/16rem);
+        }
+
+        .cs-title {
+            /* 36px - 64px */
+            font-size: clamp(2.25rem, 4.4vw, 4rem);
+            line-height: 1;
+            max-width: none;
+            margin: 0;
+            color: var(--nearBlack);
+        }
+
+        /* each sentence on its own line; when one has to wrap (phones) it splits into even halves
+           ("More than a place / to train.") instead of leaving a single word on its own */
+        .cs-title-line {
+            display: block;
+            text-wrap: balance;
+        }
+
+        .cs-text {
+            max-width: (420/16rem);
+            margin: 0;
+            color: var(--charcoal);
+        }
+
+        /* Collage - phones and tablets: full-bleed staggered strip, photos 1 and 4 cut off by the
+           screen edges, photo 3 drops lower, feature text below */
+        .cs-collage {
+            padding: 0;
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 10.5fr 30.5fr 30.5fr 22.5fr;
+            /* top row height, then the drop of the tall photo */
+            grid-template-rows: 30vw auto;
+            column-gap: 2vw;
+            row-gap: 0;
+        }
+
+        .cs-photo {
+            grid-row: 1;
+            background-color: var(--charcoal);
+            /* scroll drift - the top row rises as you scroll past */
+            transform: translateY(calc(var(--drift) * -1.5rem));
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                /* black and white, colour on hover */
+                filter: grayscale(1);
+                display: block;
+                transition: filter 0.5s, transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            &:hover img {
+                filter: grayscale(0);
+                transform: scale(1.04);
+            }
+        }
+
+        .cs-photo-3 {
+            grid-row: 1 / span 2;
+            align-self: start;
+            height: 40vw;
+            /* the tall photo drifts the other way */
+            transform: translateY(calc(var(--drift) * 2.5rem));
+        }
+
+        .cs-feature {
+            grid-column: 1 / -1;
+            grid-row: 3;
+            /* 40px - 56px below the tall photo, lined up with the page content */
+            margin-top: clamp(2.5rem, 8vw, 3.5rem);
+            padding: 0 (16/16rem);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cs-big {
+            margin: 0 0 (28/16rem);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cs-big-line {
+            font-family: var(--headerFont);
+            /* 64px - 152px */
+            font-size: clamp(4rem, 10.5vw, 9.5rem);
+            line-height: 0.85;
+            text-transform: uppercase;
+            color: var(--primary);
+        }
+
+        .cs-big-sub {
+            font-family: var(--headerFont);
+            /* 28px - 56px */
+            font-size: clamp(1.75rem, 3.9vw, 3.5rem);
+            line-height: 1.1;
+            text-transform: uppercase;
+            color: var(--nearBlack);
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #brand-statement:before {
+        animation: none;
+    }
+}
+
+@keyframes brand-grain {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-5%, 3%); }
+    40% { transform: translate(4%, -6%); }
+    60% { transform: translate(-3%, 7%); }
+    80% { transform: translate(6%, 2%); }
+    100% { transform: translate(-2%, -4%); }
+}
+
+/* Desktop - 1024px: staggered full-bleed strip, feature text overlapping it */
+@media only screen and (min-width: 64rem) {
+    #brand-statement {
+        .cs-intro {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: (48/16rem);
+        }
+
+        .cs-text {
+            /* sits level with the last lines of the headline */
+            margin-bottom: (6/16rem);
+        }
+
+        /* each sentence stays on one line */
+        .cs-title-line {
+            white-space: nowrap;
+        }
+
+        .cs-photo {
+            transform: translateY(calc(var(--drift) * -2.5rem));
+        }
+
+        .cs-photo-3 {
+            transform: translateY(calc(var(--drift) * 4rem));
+        }
+
+        .cs-collage {
+            grid-template-columns: 16fr 27.5fr 27.5fr 25fr;
+            grid-template-rows: 21vw auto;
+            column-gap: 1.25vw;
+        }
+
+        .cs-photo-3 {
+            /* fixed height so the text beside it doesn't stretch it */
+            height: 31vw;
+        }
+
+        /* feature text overlaps the bottom of the strip, lined up with the page content */
+        .cs-feature {
+            grid-column: 1 / 3;
+            grid-row: 2;
+            margin-top: -5.5vw;
+            padding: 0 0 0 max(1rem, calc((100vw - 80rem) / 2));
+            pointer-events: none;
+
+            a {
+                pointer-events: auto;
+            }
+        }
+    }
+}
+
+
+/*-- -------------------------- -->
+<---          Training          -->
+<--- -------------------------- -*/
+
+/* Mobile - 360px */
+@media only screen and (min-width: 0rem) {
+    #training {
+        padding: var(--sectionPadding);
+        background-color: var(--nearBlack);
+        position: relative;
+        z-index: 2;
+
+        .cs-container {
+            width: 100%;
+            max-width: (1280/16rem);
+            margin: auto;
+        }
+
+        .cs-header {
+            /* 40px - 56px */
+            margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+            display: flex;
+            flex-direction: column;
+            gap: (16/16rem);
+        }
+
+        .cs-title {
+            /* 48px - 88px */
+            font-size: clamp(3rem, 5.6vw, 5.5rem);
+            line-height: 0.95;
+            max-width: none;
+            margin: 0;
+            color: var(--white);
+            /* two stacked lines */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cs-text {
+            max-width: (360/16rem);
+            margin: 0;
+            color: var(--white);
+            opacity: 0.7;
+        }
+
+        .cs-card-group {
+            margin: 0;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr;
+            /* 40px - 20px */
+            gap: (40/16rem) (20/16rem);
+        }
+
+        .cs-item {
+            list-style: none;
+        }
+
+        .cs-link {
+            height: 100%;
+            text-decoration: none;
+            color: inherit;
+            /* column so the Explore links line up along the bottom of every card */
+            display: flex;
+            flex-direction: column;
+
+            &:hover {
+                .cs-picture img {
+                    filter: grayscale(0);
+                    transform: scale(1.04);
+                }
+
+                .cs-arrow {
+                    transform: translateX(4px);
+                }
+            }
+
+            &:focus-visible {
+                outline: 2px solid var(--primary);
+                outline-offset: 4px;
+            }
+        }
+
+        .cs-picture {
+            width: 100%;
+            /* shorter landscape box on mobile (about 270px tall on a 390px phone) */
+            aspect-ratio: 4 / 3;
+            /* 20px - 24px */
+            margin-bottom: clamp(1.25rem, 2vw, 1.5rem);
+            background-color: var(--charcoal);
+            display: block;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: 50% 40%;
+                /* black and white, colour on hover */
+                filter: grayscale(1);
+                display: block;
+                transition: filter 0.4s, transform 0.6s;
+            }
+        }
+
+        .cs-info {
+            padding-top: (20/16rem);
+            border-top: 1px solid rgba(237, 237, 237, 0.6);
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .cs-h3 {
+            font-family: var(--headerFont);
+            /* 28px - 34px */
+            font-size: clamp(1.75rem, 2.3vw, 2.125rem);
+            line-height: 1;
+            margin: 0 0 (12/16rem);
+            color: var(--white);
+        }
+
+        .cs-explore {
+            font-size: (14/16rem);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            white-space: nowrap;
+            /* pushed to the bottom of the card, at least 20px - 24px below the description */
+            margin-top: auto;
+            padding-top: clamp(1.25rem, 2vw, 1.5rem);
+            color: var(--white);
+            display: inline-flex;
+            align-items: center;
+            gap: (6/16rem);
+        }
+
+        .cs-arrow {
+            flex: none;
+            transition: transform 0.3s;
+        }
+
+        .cs-item-text {
+            font-size: var(--bodyFontSize);
+            line-height: var(--bodyLineHeight);
+            max-width: (400/16rem);
+            color: var(--white);
+            opacity: 0.7;
+            display: block;
+        }
+    }
+}
+
+/* Tablet - 768px: wider landscape photos while stacked */
+@media only screen and (min-width: 48rem) {
+    #training {
+        .cs-picture {
+            aspect-ratio: 16 / 10;
+        }
+    }
+}
+
+/* Desktop - 1024px: header row and 3 columns */
+@media only screen and (min-width: 64rem) {
+    #training {
+        .cs-header {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: (48/16rem);
+        }
+
+        .cs-text {
+            /* sits level with the top of the headline, like the reference */
+            align-self: center;
+        }
+
+        .cs-card-group {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .cs-picture {
+            aspect-ratio: 1 / 1;
+        }
+    }
+}
+
+/*-- -------------------------- -->
+<---         Experience         -->
+<--- -------------------------- -*/
+
+/* Mobile - 360px */
+@media only screen and (min-width: 0rem) {
+    #experience {
+        padding: var(--sectionPadding);
+        background-color: var(--lightGrey);
+        position: relative;
+        z-index: 2;
+        overflow: hidden;
+
+        /* Film grain - matches the brand statement */
+        &:before {
+            content: "";
+            width: 200%;
+            height: 200%;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+            background-size: (150/16rem) (150/16rem);
+            opacity: 0.18;
+            mix-blend-mode: multiply;
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            z-index: 0;
+            pointer-events: none;
+            animation: brand-grain 0.8s steps(6) infinite;
+        }
+
+        .cs-container {
+            width: 100%;
+            max-width: (1280/16rem);
+            margin: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header - title left, intro + button right */
+        .cs-header {
+            /* 40px - 64px */
+            margin-bottom: clamp(2.5rem, 5vw, 4rem);
+            display: flex;
+            flex-direction: column;
+            gap: (24/16rem);
+        }
+
+        .cs-title {
+            /* 48px - 88px */
+            font-size: clamp(3rem, 5.6vw, 5.5rem);
+            line-height: 0.95;
+            max-width: none;
+            margin: 0;
+            color: var(--nearBlack);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cs-accent {
+            color: var(--primary);
+        }
+
+        .cs-intro {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .cs-text {
+            max-width: (380/16rem);
+            margin: 0 0 (24/16rem);
+            color: var(--charcoal);
+        }
+
+        /* Steps */
+        .cs-steps {
+            margin: 0;
+            padding: 0;
+            border-top: 1px solid rgba(17, 17, 17, 0.6);
+        }
+
+        .cs-item {
+            list-style: none;
+            /* 20px - 32px */
+            padding: clamp(1.25rem, 2.5vw, 2rem) clamp(1rem, 2.5vw, 2rem);
+            border-bottom: 1px solid rgba(17, 17, 17, 0.6);
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr) auto;
+            grid-template-areas:
+                "number title icon"
+                "detail detail detail"
+                "media media media";
+            align-items: center;
+            column-gap: (20/16rem);
+            cursor: pointer;
+            position: relative;
+            /* keeps the black layer behind the row content but above the section background */
+            isolation: isolate;
+
+            /* full-bleed black panel - its own layer that only fades (cheap to animate) */
+            &:before {
+                content: "";
+                background-color: var(--nearBlack);
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: -100vmax;
+                right: -100vmax;
+                z-index: -1;
+                opacity: 0;
+                transition: opacity 0.35s ease-out;
+                pointer-events: none;
+            }
+        }
+
+        .cs-number {
+            grid-area: number;
+            font-family: var(--headerFont);
+            /* 40px - 56px */
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            line-height: 1;
+            min-width: 1.4em;
+            /* outlined grey number, fills solid red when the step opens */
+            color: transparent;
+            -webkit-text-stroke: 1.5px #8a8a8a;
+            transition: color 0.4s, -webkit-text-stroke-color 0.4s, font-size 0.4s;
+        }
+
+        .cs-h3 {
+            grid-area: title;
+            margin: 0;
+        }
+
+        .cs-toggle {
+            font-family: var(--headerFont);
+            /* 26px - 40px */
+            font-size: clamp(1.625rem, 3vw, 2.5rem);
+            line-height: 1;
+            text-align: left;
+            text-transform: uppercase;
+            padding: 0;
+            color: var(--nearBlack);
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.4s;
+
+            &:focus-visible {
+                outline: 2px solid var(--primary);
+                outline-offset: 4px;
+            }
+        }
+
+        .cs-detail {
+            grid-area: detail;
+            margin-top: (12/16rem);
+        }
+
+        .cs-short,
+        .cs-long {
+            font-size: (15/16rem);
+            line-height: 1.65;
+            max-width: (320/16rem);
+            margin: 0;
+        }
+
+        .cs-short {
+            color: var(--charcoal);
+        }
+
+        .cs-long {
+            color: var(--white);
+            opacity: 0.85;
+            display: none;
+        }
+
+        .cs-icon {
+            grid-area: icon;
+            color: var(--nearBlack);
+            display: flex;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .cs-picture {
+            grid-area: media;
+            width: 100%;
+            aspect-ratio: 5 / 3;
+            margin-top: (20/16rem);
+            background-color: var(--charcoal);
+            overflow: hidden;
+            display: none;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                /* per row crop: --fy picks the vertical band, --fx / --fy the zoom point, --z the zoom level */
+                object-position: 50% var(--fy, 50%);
+                transform-origin: var(--fx, 50%) var(--fy, 50%);
+                transform: scale(var(--z, 1));
+                filter: grayscale(1);
+                display: block;
+                animation: experience-fade 0.5s ease;
+            }
+        }
+
+        .cs-item:hover:not(.is-active) .cs-icon {
+            transform: translateX(4px);
+        }
+
+        /* Open row - dark panel, red number, full text and photo */
+        .cs-item.is-active {
+            cursor: default;
+
+            &:before {
+                opacity: 1;
+            }
+
+            .cs-number {
+                color: var(--primary);
+                -webkit-text-stroke-color: var(--primary);
+                /* 56px - 88px */
+                font-size: clamp(3.5rem, 6vw, 5.5rem);
+            }
+
+            .cs-toggle {
+                color: var(--white);
+            }
+
+            .cs-short {
+                display: none;
+            }
+
+            .cs-long {
+                display: block;
+            }
+
+            .cs-icon {
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            .cs-picture {
+                display: block;
+            }
+        }
+    }
+}
+
+@keyframes experience-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Mobile + tablet (below 1024px): accordion with +/- icons, text above the photo, full-width rows */
+@media only screen and (max-width: 63.9375rem) {
+    #experience {
+        /* full-width CTA */
+        .cs-intro .cs-button-solid {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* rows and dividers run edge to edge, content keeps the 16px gutter */
+        .cs-steps {
+            margin: 0 (-16/16rem);
+        }
+
+        .cs-item {
+            padding: (24/16rem) (16/16rem);
+            grid-template-areas:
+                "number title icon"
+                "detail detail detail"
+                "media media media";
+            column-gap: (16/16rem);
+        }
+
+        .cs-number {
+            font-size: (34/16rem);
+            min-width: 1.75em;
+        }
+
+        .cs-toggle {
+            font-size: (24/16rem);
+        }
+
+        /* closed rows show just number, title and + */
+        .cs-detail {
+            display: none;
+        }
+
+        /* + / - instead of the arrow */
+        .cs-icon {
+            width: (20/16rem);
+            height: (20/16rem);
+            position: relative;
+
+            svg {
+                display: none;
+            }
+
+            &:before,
+            &:after {
+                content: "";
+                width: (14/16rem);
+                height: 2px;
+                background-color: currentColor;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                transition: transform 0.3s, opacity 0.3s;
+            }
+
+            /* vertical stroke of the + */
+            &:after {
+                transform: translate(-50%, -50%) rotate(90deg);
+            }
+        }
+
+        .cs-item:hover:not(.is-active) .cs-icon {
+            transform: none;
+        }
+
+        .cs-item.is-active {
+            padding-top: (28/16rem);
+            padding-bottom: (32/16rem);
+
+            .cs-number {
+                font-size: (60/16rem);
+                /* the big number only needs its own width, leaving more room for the title */
+                min-width: 0;
+            }
+
+            .cs-toggle {
+                font-size: (28/16rem);
+            }
+
+            /* - stays visible on the open row */
+            .cs-icon {
+                color: var(--white);
+                opacity: 1;
+                pointer-events: auto;
+
+                &:after {
+                    opacity: 0;
+                    transform: translate(-50%, -50%) rotate(0deg);
+                }
+            }
+
+            .cs-picture {
+                margin-top: (24/16rem);
+            }
+
+            .cs-detail {
+                margin-top: (24/16rem);
+                display: block;
+            }
+
+            .cs-long {
+                font-size: var(--bodyFontSize);
+                line-height: var(--bodyLineHeight);
+                max-width: none;
+            }
+        }
+    }
+}
+
+/* Desktop - 1024px: header row, steps as 4 columns (number | title | text | photo / arrow) */
+@media only screen and (min-width: 64rem) {
+    #experience {
+        .cs-header {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .cs-intro {
+            width: (372/16rem);
+            flex: none;
+            /* lines up with the middle of the heading */
+            margin-bottom: (8/16rem);
+        }
+
+        .cs-item {
+            grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr) minmax(0, 1.4fr) minmax(0, 1.1fr);
+            grid-template-areas: "number title detail media";
+            column-gap: clamp(1.5rem, 3vw, 2.5rem);
+        }
+
+        .cs-detail {
+            margin-top: 0;
+        }
+
+        /* the arrow and the photo share the last column */
+        .cs-icon {
+            grid-area: media;
+            justify-self: end;
+        }
+
+        .cs-picture {
+            margin-top: 0;
+        }
+    }
+}
+
+/* Desktop with a mouse - animate rows open and closed instead of snapping */
+@media only screen and (min-width: 64rem) and (hover: hover) {
+    #experience {
+        @ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+        /* Fixed row heights: every closed row is the same height and the open row is a set amount taller.
+           One row grows while another shrinks by the same amount, with the same timing,
+           so the list - and the whole section - keeps one height throughout the animation. */
+        .cs-item {
+            height: (150/16rem);
+            box-sizing: border-box;
+            /* clip only top and bottom - the black panel still bleeds out to the screen edges */
+            clip-path: inset(0 -100vmax);
+            /* one row that is exactly the row's inner height, so content stays centred and the photo can fill it */
+            grid-template-rows: minmax(0, 1fr);
+            transition: height 0.45s @ease;
+        }
+
+        .cs-item.is-active {
+            height: (240/16rem);
+        }
+
+        /* number grows with a transform instead of a font-size change, so the text isn't re-laid out every frame */
+        .cs-number {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            transform-origin: left center;
+            transition: color 0.35s @ease, -webkit-text-stroke-color 0.35s @ease, transform 0.45s @ease;
+            will-change: transform;
+        }
+
+        .cs-item.is-active .cs-number {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            transform: scale(1.55);
+        }
+
+        .cs-toggle {
+            transition: color 0.35s @ease;
+        }
+
+        /* short and long text sit in the same spot and only cross-fade (no height animation, so no text re-layout).
+           The long text is shorter than a closed row, so it never changes the row height. */
+        .cs-detail {
+            align-self: center;
+            display: grid;
+        }
+
+        .cs-short,
+        .cs-long {
+            grid-area: 1 / 1;
+            align-self: center;
+            display: block;
+            transition: opacity 0.3s @ease;
+        }
+
+        .cs-short {
+            opacity: 1;
+        }
+
+        .cs-long {
+            opacity: 0;
+        }
+
+        /* the photo is always full size and only fades - the row height does the reveal */
+        .cs-picture {
+            height: 100%;
+            aspect-ratio: auto;
+            display: block;
+            opacity: 0;
+            transition: opacity 0.35s @ease;
+
+            img {
+                animation: none;
+            }
+        }
+
+        .cs-icon {
+            transition: transform 0.3s @ease, opacity 0.3s @ease;
+        }
+
+        .cs-item.is-active {
+            .cs-short {
+                opacity: 0;
+            }
+
+            .cs-long {
+                opacity: 0.85;
+                /* fades in just after the row starts opening */
+                transition-delay: 0.1s;
+            }
+
+            .cs-picture {
+                opacity: 1;
+                transition-delay: 0.1s;
+            }
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #experience {
+        &:before {
+            animation: none;
+        }
+
+        .cs-picture img {
+            animation: none;
+        }
+    }
+}
+
+/*-- -------------------------- -->
+<---          Trainers          -->
+<--- -------------------------- -*/
+
+/* Mobile - 360px */
+@media only screen and (min-width: 0rem) {
+    #trainers {
+        padding: var(--sectionPadding);
+        background-color: var(--nearBlack);
+        position: relative;
+        z-index: 2;
+
+        .cs-container {
+            width: 100%;
+            max-width: (1280/16rem);
+            margin: auto;
+        }
+
+        .cs-header {
+            /* 32px - 48px */
+            margin-bottom: clamp(2rem, 4.5vw, 3rem);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: (16/16rem);
+        }
+
+        .cs-title {
+            /* 48px - 88px */
+            font-size: clamp(3rem, 5.6vw, 5.5rem);
+            line-height: 0.95;
+            max-width: none;
+            margin: 0;
+            color: var(--white);
+        }
+
+        .cs-link {
+            font-size: (14/16rem);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            /* sits level with the middle of the heading */
+            margin-bottom: clamp(0.75rem, 2vw, 1.5rem);
+            color: var(--white);
+            display: inline-flex;
+            align-items: center;
+            gap: (6/16rem);
+
+            &:hover .cs-arrow {
+                transform: translateX(4px);
+            }
+        }
+
+        .cs-arrow {
+            transition: transform 0.3s;
+        }
+
+        .cs-card-group {
+            margin: 0;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: (20/16rem);
+        }
+
+        /* bordered card - portrait on the left, details along the bottom right */
+        .cs-item {
+            list-style: none;
+            /* 20px - 32px */
+            padding: clamp(1.25rem, 2.5vw, 2rem);
+            border: 1px solid rgba(237, 237, 237, 0.12);
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: clamp(1.5rem, 3vw, 2rem);
+            transition: border-color 0.3s;
+
+            &:hover {
+                border-color: rgba(237, 237, 237, 0.35);
+
+                .cs-picture img {
+                    transform: scale(1.03);
+                }
+            }
+        }
+
+        .cs-picture {
+            width: 100%;
+            /* tall portrait */
+            aspect-ratio: 2 / 3;
+            background-color: #1b1b1b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                /* keeps the face in frame when the square photo is cropped to a tall portrait */
+                object-position: 50% 20%;
+                display: block;
+                transition: transform 0.6s;
+            }
+        }
+
+        .cs-placeholder {
+            font-size: (12/16rem);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(237, 237, 237, 0.45);
+        }
+
+        /* details sit along the bottom of the card */
+        .cs-info {
+            align-self: end;
+        }
+
+        .cs-role {
+            font-size: var(--topperFontSize);
+            line-height: var(--topperLineHeight);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: (8/16rem);
+            color: var(--primary);
+            display: block;
+        }
+
+        .cs-name {
+            /* 36px - 52px */
+            font-size: clamp(2.25rem, 3.6vw, 3.25rem);
+            line-height: 1;
+            margin: 0 0 (14/16rem);
+            color: var(--white);
+        }
+
+        .cs-bio {
+            font-size: var(--bodyFontSize);
+            line-height: var(--bodyLineHeight);
+            max-width: (340/16rem);
+            margin: 0;
+            color: var(--white);
+            opacity: 0.6;
+        }
+    }
+}
+
+/* Mobile - shorter cards: square photo (the full original image) instead of the tall portrait */
+@media only screen and (max-width: 47.9375rem) {
+    #trainers {
+        .cs-picture {
+            aspect-ratio: 1 / 1;
+        }
+    }
+}
+
+/* Tablet - 768px: portrait beside the details */
+@media only screen and (min-width: 48rem) {
+    #trainers {
+        .cs-item {
+            /* larger portrait */
+            grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+        }
+    }
+}
+
+/* Desktop - 1024px: two cards side by side */
+@media only screen and (min-width: 64rem) {
+    #trainers {
+        .cs-card-group {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            /* shared rows (spacer, role, name, bio) so both cards line up while sitting at the bottom */
+            grid-template-rows: 1fr auto auto auto;
+            column-gap: (24/16rem);
+            row-gap: 0;
+        }
+
+        .cs-item {
+            grid-row: span 4;
+            grid-template-rows: subgrid;
+            row-gap: 0;
+        }
+
+        .cs-picture {
+            grid-column: 1;
+            grid-row: 1 / -1;
+        }
+
+        /* role, name and bio become items of the shared rows */
+        .cs-info {
+            display: contents;
+        }
+
+        .cs-role,
+        .cs-name,
+        .cs-bio {
+            grid-column: 2;
+        }
+
+        .cs-role {
+            grid-row: 2;
+        }
+
+        .cs-name {
+            grid-row: 3;
+        }
+
+        .cs-bio {
+            grid-row: 4;
+        }
+    }
+}
+
+/*-- -------------------------- -->
+<---       Featured Story       -->
+<--- -------------------------- -*/
+
+/* Mobile - 360px */
+@media only screen and (min-width: 0rem) {
+    #featured-story {
+        padding: var(--sectionPadding);
+        background-color: var(--lightGrey);
+        position: relative;
+        z-index: 2;
+        overflow: hidden;
+
+        /* Film grain - matches the other light sections */
+        &:before {
+            content: "";
+            width: 200%;
+            height: 200%;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+            background-size: (150/16rem) (150/16rem);
+            opacity: 0.18;
+            mix-blend-mode: multiply;
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            z-index: 0;
+            pointer-events: none;
+            animation: brand-grain 0.8s steps(6) infinite;
+        }
+
+        .cs-container {
+            width: 100%;
+            max-width: (1280/16rem);
+            margin: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Slider - full bleed: slides move all the way to the screen edges (the section clips them there).
+           The gap between slides equals the side gutter, so only the current story shows at rest. */
+        .cs-viewport {
+            overflow: visible;
+        }
+
+        .cs-track {
+            --slide-gap: max(1rem, calc((100vw - 80rem) / 2));
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: var(--slide-gap);
+            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+            will-change: transform;
+        }
+
+        .cs-slide {
+            list-style: none;
+            width: 100%;
+            flex: none;
+            display: flex;
+            flex-direction: column;
+            /* 32px - 48px */
+            gap: clamp(2rem, 4.5vw, 3rem);
+        }
+
+        .cs-picture {
+            width: 100%;
+            aspect-ratio: 8 / 7;
+            background-color: #dcdcdc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                filter: grayscale(1);
+                display: block;
+            }
+        }
+
+        .cs-placeholder {
+            font-size: (12/16rem);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 0 (16/16rem);
+            color: rgba(17, 17, 17, 0.45);
+        }
+
+        .cs-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .cs-topper {
+            letter-spacing: 0.12em;
+            margin-bottom: (14/16rem);
+            color: var(--primary);
+        }
+
+        .cs-title {
+            /* 40px - 72px */
+            font-size: clamp(2.5rem, 4.8vw, 4.5rem);
+            line-height: 0.95;
+            max-width: (620/16rem);
+            margin: 0 0 (20/16rem);
+            color: var(--nearBlack);
+        }
+
+        .cs-text {
+            font-size: var(--bodyLargeFontSize);
+            line-height: 1.55;
+            max-width: (560/16rem);
+            /* 32px - 44px */
+            margin: 0 0 clamp(2rem, 3.5vw, 2.75rem);
+            color: var(--charcoal);
+        }
+
+        .cs-link {
+            font-size: (14/16rem);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            color: var(--nearBlack);
+            display: inline-flex;
+            align-items: center;
+            gap: (6/16rem);
+
+            &:hover .cs-arrow {
+                transform: translateX(4px);
+            }
+        }
+
+        .cs-arrow {
+            transition: transform 0.3s;
+        }
+
+        /* Controls - progress segments and arrows */
+        .cs-controls {
+            /* 32px - 48px */
+            margin-top: clamp(2rem, 4.5vw, 3rem);
+            display: flex;
+            align-items: center;
+            gap: (24/16rem);
+        }
+
+        .cs-progress {
+            flex: 1;
+            display: flex;
+            gap: (8/16rem);
+        }
+
+        .cs-segment {
+            height: (20/16rem);
+            padding: 0;
+            background: none;
+            border: none;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+
+            /* the visible 2px bar inside a taller click target */
+            &:before {
+                content: "";
+                width: 100%;
+                height: 2px;
+                background-color: rgba(17, 17, 17, 0.18);
+                position: absolute;
+            }
+
+            position: relative;
+
+            &:focus-visible {
+                outline: 2px solid var(--primary);
+                outline-offset: 2px;
+            }
+        }
+
+        .cs-fill {
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            position: relative;
+            z-index: 1;
+            display: block;
+        }
+
+        .cs-segment.is-done .cs-fill {
+            width: 100%;
+        }
+
+        .cs-segment.is-active .cs-fill {
+            animation: story-progress 5s linear forwards;
+        }
+
+        &.is-paused .cs-segment.is-active .cs-fill {
+            animation-play-state: paused;
+        }
+
+        /* reduced motion: no timer, the active story's bar is just full */
+        &.is-static {
+            .cs-track {
+                transition: none;
+            }
+
+            .cs-segment.is-active .cs-fill {
+                width: 100%;
+                animation: none;
+            }
+        }
+
+        .cs-arrows {
+            display: flex;
+            gap: (8/16rem);
+        }
+
+        .cs-arrow-button {
+            width: (44/16rem);
+            height: (44/16rem);
+            padding: 0;
+            color: var(--nearBlack);
+            background: none;
+            border: 1px solid rgba(17, 17, 17, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+
+            &:hover {
+                color: var(--white);
+                background-color: var(--nearBlack);
+                border-color: var(--nearBlack);
+            }
+
+            &:focus-visible {
+                outline: 2px solid var(--primary);
+                outline-offset: 2px;
+            }
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #featured-story:before {
+        animation: none;
+    }
+}
+
+@keyframes story-progress {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* Desktop - 1024px: photo left, story right */
+@media only screen and (min-width: 64rem) {
+    #featured-story {
+        .cs-slide {
+            flex-direction: row;
+            align-items: center;
+            gap: clamp(3rem, 6vw, 5rem);
+        }
+
+        .cs-picture {
+            width: 46%;
+            flex: none;
+        }
+
+        .cs-content {
+            flex: 1;
+        }
+    }
+}
+
+/*-- -------------------------- -->
+<---        Testimonials        -->
+<--- -------------------------- -*/
+
+/* Mobile - 360px */
+@media only screen and (min-width: 0rem) {
+    #testimonials {
+        padding: var(--sectionPadding);
+        /* placeholder photo background - blended over grey with "luminosity" so it renders black & white, dark overlay on top */
+        background-color: #808080;
+        background-image:
+            linear-gradient(rgba(17, 17, 17, 0.7), rgba(17, 17, 17, 0.7)),
+            url("https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/grindhouse-brand-statement-bg.jpg");
+        background-blend-mode: normal, luminosity;
+        background-size: cover;
+        background-position: 70% 30%;
+        position: relative;
+        z-index: 2;
+        overflow: hidden;
+
+        /* Film grain - same as the hero */
+        &:before {
+            content: "";
+            width: 200%;
+            height: 200%;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+            background-size: (150/16rem) (150/16rem);
+            opacity: 0.3;
+            mix-blend-mode: overlay;
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            z-index: 0;
+            pointer-events: none;
+            animation: brand-grain 0.8s steps(6) infinite;
+        }
+
+        .cs-container {
+            width: 100%;
+            max-width: (1280/16rem);
+            margin: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cs-header {
+            /* 32px - 48px */
+            margin-bottom: clamp(2rem, 4.5vw, 3rem);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: (20/16rem);
+        }
+
+        .cs-title {
+            /* 48px - 88px */
+            font-size: clamp(3rem, 5.6vw, 5.5rem);
+            line-height: 0.95;
+            max-width: none;
+            margin: 0;
+            color: var(--white);
+        }
+
+        .cs-controls {
+            display: flex;
+            align-items: center;
+            gap: (24/16rem);
+        }
+
+        .cs-link {
+            font-size: (14/16rem);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            color: var(--white);
+            display: inline-flex;
+            align-items: center;
+            gap: (6/16rem);
+
+            &:hover .cs-arrow {
+                transform: translateX(4px);
+            }
+        }
+
+        .cs-arrow {
+            transition: transform 0.3s;
+        }
+
+        /* arrows sit under the cards, on the right */
+        .cs-arrows {
+            /* 24px - 32px */
+            margin-top: clamp(1.5rem, 3vw, 2rem);
+            display: flex;
+            justify-content: flex-end;
+            gap: (8/16rem);
+        }
+
+        .cs-arrow-button {
+            width: (44/16rem);
+            height: (44/16rem);
+            padding: 0;
+            color: var(--white);
+            background: none;
+            border: 1px solid rgba(237, 237, 237, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s, opacity 0.3s;
+
+            &:hover:not(:disabled) {
+                color: var(--nearBlack);
+                background-color: var(--white);
+                border-color: var(--white);
+            }
+
+            &:disabled {
+                opacity: 0.3;
+                cursor: default;
+            }
+
+            &:focus-visible {
+                outline: 2px solid var(--primary);
+                outline-offset: 2px;
+            }
+        }
+
+        /* scrolling row - full bleed to the screen edges, cards still line up with the content.
+           one card (plus a peek) on phones, two on tablet and up */
+        .cs-card-group {
+            /* width of the page content, and the space either side of it */
+            --cw: min(100vw - 2rem, 80rem);
+            --gutter: calc((100vw - var(--cw)) / 2);
+            margin: 0 calc(var(--gutter) * -1);
+            padding: 0 var(--gutter);
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: calc(var(--cw) * 0.88);
+            gap: (16/16rem);
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-padding: 0 var(--gutter);
+            scrollbar-width: none;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+
+        /* card - quote and attribution on frosted glass */
+        .cs-item {
+            list-style: none;
+            scroll-snap-align: start;
+            display: flex;
+        }
+
+        .cs-figure {
+            width: 100%;
+            margin: 0;
+            /* 28px - 48px */
+            padding: clamp(1.75rem, 4vw, 3rem);
+            box-sizing: border-box;
+            /* keeps the card size from before the quote text was reduced (about 345px tall on a 1440px screen) */
+            min-height: clamp(17.5rem, 24vw, 21.5rem);
+            background-color: rgba(17, 17, 17, 0.35);
+            -webkit-backdrop-filter: blur(18px) saturate(120%);
+            backdrop-filter: blur(18px) saturate(120%);
+            border: 1px solid rgba(237, 237, 237, 0.18);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            /* 32px - 48px between quote and name */
+            gap: clamp(2rem, 4vw, 3rem);
+            transition: border-color 0.3s;
+
+            &:hover {
+                border-color: rgba(237, 237, 237, 0.4);
+            }
+        }
+
+        .cs-quote {
+            margin: 0;
+
+            p {
+                font-family: var(--bodyFont);
+                /* 17px - 22px, sized for full-length reviews */
+                font-size: clamp(1.0625rem, 1.5vw, 1.375rem);
+                font-weight: 600;
+                line-height: 1.35;
+                letter-spacing: -0.01em;
+                margin: 0;
+                color: var(--white);
+            }
+
+            /* space between paragraphs in longer reviews */
+            p + p {
+                margin-top: 0.75em;
+            }
+        }
+
+        .cs-author {
+            font-size: (15/16rem);
+            line-height: 1.4;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: rgba(237, 237, 237, 0.55);
+        }
+
+        .cs-name {
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .cs-role {
+            font-weight: 400;
+        }
+    }
+}
+
+/* Tablet - 768px: two cards in view */
+@media only screen and (min-width: 48rem) {
+    #testimonials {
+        .cs-card-group {
+            /* two cards fill the content width */
+            grid-auto-columns: calc((var(--cw) - 1.5rem) / 2);
+            gap: (24/16rem);
+        }
+
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #testimonials:before {
+        animation: none;
+    }
+}
+
+/*-- -------------------------- -->
+<---         Instagram          -->
+<--- -------------------------- -*/
+
+/* Mobile - 360px */
+@media only screen and (min-width: 0rem) {
+    #instagram {
+        /* no bottom padding - the mosaic runs flush to the bottom edge */
+        padding: clamp(3.75rem, 7.82vw, 6.25rem) (16/16rem) 0;
+        background-color: var(--nearBlack);
+        position: relative;
+        z-index: 2;
+        overflow: hidden;
+
+        .cs-container {
+            width: 100%;
+            max-width: (1280/16rem);
+            margin: auto;
+        }
+
+        .cs-header {
+            /* 32px - 48px */
+            margin-bottom: clamp(2rem, 4.5vw, 3rem);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: (20/16rem);
+        }
+
+        .cs-title {
+            /* 48px - 88px */
+            font-size: clamp(3rem, 5.6vw, 5.5rem);
+            line-height: 0.95;
+            max-width: none;
+            margin: 0;
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cs-accent {
+            color: var(--primary);
+        }
+
+        .cs-link {
+            font-size: (14/16rem);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            margin-bottom: (8/16rem);
+            color: var(--white);
+            display: inline-flex;
+            align-items: center;
+            gap: (6/16rem);
+
+            &:hover .cs-arrow {
+                transform: translateX(4px);
+            }
+        }
+
+        .cs-arrow {
+            transition: transform 0.3s;
+        }
+
+        /* Full-bleed mosaic - runs edge to edge of the screen.
+           phones and tablets: 3 columns x 3 rows, the feature tile spans 2x2 */
+        .cs-mosaic {
+            /* cancel the section's side padding so it touches the screen edges */
+            margin: 0 (-16/16rem);
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            /* rows take their height from the square single tiles; feature tiles fill 2 rows */
+            grid-auto-flow: dense;
+            gap: (4/16rem);
+        }
+
+        .cs-tile {
+            list-style: none;
+            aspect-ratio: 1 / 1;
+            /* the photo fills the tile without affecting its size, so rows stay square */
+            position: relative;
+
+            /* feature tile */
+            &:nth-child(1) {
+                grid-column: span 2;
+                grid-row: span 2;
+                aspect-ratio: auto;
+            }
+        }
+
+        .cs-tile-link {
+            background-color: var(--charcoal);
+            display: block;
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                /* black and white, colour on hover */
+                filter: grayscale(1);
+                display: block;
+                transition: filter 0.5s, transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            /* subtle grain over every tile */
+            &:after {
+                content: "";
+                width: 100%;
+                height: 100%;
+                background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+                background-size: (150/16rem) (150/16rem);
+                opacity: 0.2;
+                mix-blend-mode: overlay;
+                position: absolute;
+                top: 0;
+                left: 0;
+                pointer-events: none;
+            }
+
+            &:hover,
+            &:focus-visible {
+                img {
+                    filter: grayscale(0);
+                    transform: scale(1.05);
+                }
+
+                .cs-overlay {
+                    opacity: 1;
+                }
+
+                .cs-ig {
+                    transform: scale(1);
+                }
+            }
+
+            &:focus-visible {
+                outline: 2px solid var(--primary);
+                outline-offset: 3px;
+            }
+        }
+
+        /* red wash and Instagram icon on hover */
+        .cs-overlay {
+            width: 100%;
+            height: 100%;
+            color: var(--white);
+            background-color: rgba(213, 43, 53, 0.35); /* --boxingRed at 35% */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .cs-ig {
+            width: (36/16rem);
+            height: auto;
+            transform: scale(0.7);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    }
+}
+
+/* Desktop - 1024px: 6 columns x 2 rows, feature tiles on the left and right, 4 small tiles between */
+@media only screen and (min-width: 64rem) {
+    #instagram {
+        .cs-mosaic {
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+        }
+
+        .cs-tile:nth-child(1) {
+            grid-column: 1 / span 2;
+            grid-row: 1 / span 2;
+        }
+
+        .cs-tile:nth-child(6) {
+            grid-column: 5 / span 2;
+            grid-row: 1 / span 2;
+            aspect-ratio: auto;
+        }
+    }
+}
+
+/*-- -------------------------- -->
+<---        Memberships         -->
+<--- -------------------------- -*/
+
+/* Mobile - 360px */
+@media only screen and (min-width: 0rem) {
+    #memberships {
+        padding: var(--sectionPadding);
+        background-color: var(--nearBlack);
+        position: relative;
+        z-index: 2;
+
+        .cs-container {
+            width: 100%;
+            max-width: (1280/16rem);
+            margin: auto;
+        }
+
+        .cs-header {
+            /* 32px - 56px */
+            margin-bottom: clamp(2rem, 5vw, 3.5rem);
+            display: flex;
+            flex-direction: column;
+            gap: (16/16rem);
+        }
+
+        .cs-title {
+            /* 48px - 88px */
+            font-size: clamp(3rem, 5.6vw, 5.5rem);
+            line-height: 0.95;
+            max-width: none;
+            margin: 0;
+            color: var(--white);
+        }
+
+        .cs-text {
+            max-width: (380/16rem);
+            margin: 0;
+            color: var(--white);
+            opacity: 0.7;
+        }
+
+        .cs-plan-group {
+            margin: 0;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: (20/16rem);
+        }
+
+        /* plan card - bordered like the trainer cards */
+        .cs-plan {
+            list-style: none;
+            /* 28px - 40px */
+            padding: clamp(1.75rem, 3vw, 2.5rem);
+            border: 1px solid rgba(237, 237, 237, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: border-color 0.3s, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+            &:hover {
+                border-color: rgba(237, 237, 237, 0.4);
+                transform: translateY(-4px);
+            }
+        }
+
+        .cs-badge {
+            font-size: var(--topperFontSize);
+            line-height: var(--topperLineHeight);
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: (16/16rem);
+            color: var(--primary);
+        }
+
+        .cs-plan-name {
+            /* 30px - 40px */
+            font-size: clamp(1.875rem, 2.8vw, 2.5rem);
+            line-height: 1;
+            margin: 0 0 (20/16rem);
+            color: var(--white);
+        }
+
+        .cs-price {
+            margin: 0 0 (16/16rem);
+            color: var(--white);
+            display: flex;
+            align-items: baseline;
+            gap: (8/16rem);
+        }
+
+        .cs-amount {
+            font-family: var(--headerFont);
+            /* 56px - 80px */
+            font-size: clamp(3.5rem, 5.5vw, 5rem);
+            line-height: 1;
+        }
+
+        .cs-term {
+            font-size: (15/16rem);
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .cs-plan-text {
+            font-size: (15/16rem);
+            line-height: 1.6;
+            margin: 0 0 (24/16rem);
+            color: var(--white);
+            opacity: 0.7;
+        }
+
+        .cs-features {
+            width: 100%;
+            margin: 0 0 (32/16rem);
+            padding: (24/16rem) 0 0;
+            border-top: 1px solid rgba(237, 237, 237, 0.15);
+            display: flex;
+            flex-direction: column;
+            gap: (12/16rem);
+        }
+
+        .cs-feature {
+            list-style: none;
+            font-size: (15/16rem);
+            line-height: 1.5;
+            color: var(--white);
+            display: flex;
+            align-items: flex-start;
+            gap: (10/16rem);
+        }
+
+        .cs-check {
+            margin-top: (3/16rem);
+            flex: none;
+            color: var(--primary);
+        }
+
+        /* button sits at the bottom so all three line up */
+        .cs-plan-button {
+            margin-top: auto;
+        }
+
+        .cs-button-outline {
+            color: var(--white);
+            border-color: var(--white);
+
+            &:before {
+                background-color: var(--white);
+            }
+
+            &:hover {
+                color: var(--nearBlack);
+            }
+        }
+
+        /* Featured trial card - solid Boxing Red */
+        .cs-featured {
+            background-color: var(--primary);
+            border-color: var(--primary);
+
+            &:hover {
+                border-color: var(--primary);
+            }
+
+            .cs-badge {
+                color: var(--white);
+            }
+
+            .cs-plan-text,
+            .cs-term {
+                opacity: 0.9;
+            }
+
+            .cs-features {
+                border-top-color: rgba(255, 255, 255, 0.35);
+            }
+
+            .cs-check {
+                color: var(--white);
+            }
+
+            /* white button, black sweep on hover */
+            .cs-button-solid {
+                color: var(--nearBlack);
+                background-color: var(--white);
+
+                &:hover {
+                    color: var(--white);
+                }
+            }
+        }
+    }
+}
+
+/* Desktop - 1024px: header row, three plans side by side */
+@media only screen and (min-width: 64rem) {
+    #memberships {
+        .cs-header {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .cs-text {
+            margin-bottom: (8/16rem);
+        }
+
+        .cs-plan-group {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+}
+
+/*-- -------------------------- -->
+<---            FAQ             -->
+<--- -------------------------- -*/
+
+/* Mobile - 360px */
+@media only screen and (min-width: 0rem) {
+    #faq {
+        padding: var(--sectionPadding);
+        background-color: var(--lightGrey);
+        position: relative;
+        z-index: 2;
+        /* clip (not hidden) so the sticky column still works */
+        overflow: clip;
+        /* lets the answers animate to their natural height in supporting browsers */
+        interpolate-size: allow-keywords;
+
+        /* Film grain - matches the other light sections */
+        &:before {
+            content: "";
+            width: 200%;
+            height: 200%;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+            background-size: (150/16rem) (150/16rem);
+            opacity: 0.18;
+            mix-blend-mode: multiply;
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            z-index: 0;
+            pointer-events: none;
+            animation: brand-grain 0.8s steps(6) infinite;
+        }
+
+        .cs-container {
+            width: 100%;
+            max-width: (1280/16rem);
+            margin: auto;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            /* 40px - 56px */
+            gap: clamp(2.5rem, 5vw, 3.5rem);
+        }
+
+        .cs-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .cs-title {
+            /* 48px - 88px */
+            font-size: clamp(3rem, 5.6vw, 5.5rem);
+            line-height: 0.95;
+            max-width: none;
+            margin: 0 0 (20/16rem);
+            color: var(--nearBlack);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cs-accent {
+            color: var(--primary);
+        }
+
+        .cs-text {
+            max-width: (380/16rem);
+            margin: 0 0 (28/16rem);
+            color: var(--charcoal);
+        }
+
+        /* Accordion */
+        .cs-faq-group {
+            border-top: 1px solid rgba(17, 17, 17, 0.6);
+        }
+
+        .cs-faq-item {
+            border-bottom: 1px solid rgba(17, 17, 17, 0.6);
+
+            /* smooth open / close where supported (Chrome 131+), instant elsewhere */
+            &::details-content {
+                block-size: 0;
+                overflow: hidden;
+                transition: block-size 0.4s cubic-bezier(0.4, 0, 0.2, 1), content-visibility 0.4s allow-discrete;
+            }
+
+            &[open]::details-content {
+                block-size: auto;
+            }
+
+            &[open] .cs-plus:after {
+                opacity: 0;
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            &[open] .cs-question-text {
+                color: var(--primary);
+            }
+        }
+
+        .cs-question {
+            /* 20px - 28px top and bottom */
+            padding: clamp(1.25rem, 2.5vw, 1.75rem) 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: (24/16rem);
+            cursor: pointer;
+            list-style: none;
+
+            &::-webkit-details-marker {
+                display: none;
+            }
+
+            &:hover .cs-question-text {
+                color: var(--primary);
+            }
+
+            &:focus-visible {
+                outline: 2px solid var(--primary);
+                outline-offset: 4px;
+            }
+        }
+
+        .cs-question-text {
+            /* 18px - 22px */
+            font-size: clamp(1.125rem, 1.8vw, 1.375rem);
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--nearBlack);
+            transition: color 0.3s;
+        }
+
+        /* + that turns into a - when open */
+        .cs-plus {
+            width: (20/16rem);
+            height: (20/16rem);
+            flex: none;
+            color: var(--nearBlack);
+            position: relative;
+
+            &:before,
+            &:after {
+                content: "";
+                width: (16/16rem);
+                height: 2px;
+                background-color: currentColor;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                transition: transform 0.3s, opacity 0.3s;
+            }
+
+            &:after {
+                transform: translate(-50%, -50%) rotate(90deg);
+            }
+        }
+
+        .cs-answer {
+            /* 20px - 28px */
+            padding-bottom: clamp(1.25rem, 2.5vw, 1.75rem);
+
+            p {
+                max-width: (620/16rem);
+                margin: 0;
+                color: var(--charcoal);
+            }
+
+            a {
+                color: var(--primary);
+                text-decoration: underline;
+                text-underline-offset: 3px;
+
+                &:hover {
+                    text-decoration-thickness: 2px;
+                }
+            }
+        }
+    }
+}
+
+/* Desktop - 1024px: heading pinned on the left, questions on the right */
+@media only screen and (min-width: 64rem) {
+    #faq {
+        .cs-container {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: clamp(3rem, 7vw, 7rem);
+        }
+
+        .cs-content {
+            width: 36%;
+            flex: none;
+            position: sticky;
+            /* clears the fixed nav */
+            top: (120/16rem);
+        }
+
+        .cs-faq-group {
+            flex: 1;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #faq {
+        &:before {
+            animation: none;
+        }
+
+        .cs-faq-item::details-content {
+            transition: none;
+        }
+    }
+}
+
+/*-- -------------------------- -->
+<---       Side By Side         -->
+<--- -------------------------- -*/
+
+/* Mobile - 360px */
+@media only screen and (min-width: 0rem) {
+    #RPsbs-313,
+    #RPsbsr-313 {
+        padding: var(--sectionPadding);
+
+        .cs-container {
+            width: 100%;
+            max-width: (1280/16rem);
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* 48px - 64px */
+            gap: clamp(3rem, 6vw, 4rem);
+        }
+
+        .cs-content {
+            /* set text align to left if content needs to be left aligned */
+            text-align: left;
+            width: 100%;
+            max-width: (542/16rem);
+            display: flex;
+            flex-direction: column;
+            /* centers content horizontally, set to flex-start to left align */
+            align-items: flex-start;
+        }
+
+        .cs-text {
+            margin-bottom: (16/16rem);
+            &:last-of-type {
+                margin-bottom: (32/16rem);
+            }
+        }
+
+        .cs-quote {
+            margin: 0 0 (32/16rem) 0;
+            /* 16px - 32px */
+            padding: clamp(1rem, 3vw, 2rem);
+            background-color: var(--lightGrey);
+            border-radius: (16/16rem);
+            position: relative;
+        }
+
+        .cs-quote-text {
+            /* 14px - 16px */
+            font-size: clamp(0.875rem, 1.5vw, 1rem);
+            line-height: 1.5em;
+            margin: 0 0 (16/16rem);
+            color: var(--charcoal);
+            display: block;
+        }
+
+        .cs-name {
+            font-size: (16/16rem);
+            line-height: 1.2em;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin: 0 0 (4/16rem);
+            color: var(--headerColor);
+            display: block;
+        }
+
+        .cs-job {
+            font-size: (14/16rem);
+            line-height: 1.5em;
+            color: var(--charcoal);
+            display: block;
+        }
+
+        .cs-quote-icon {
+            /* 60px - 136px */
+            width: clamp(3.75rem, 10vw, 8.5rem);
+            height: auto;
+            position: absolute;
+            bottom: (0/16rem);
+            /* 16px - 32px */
+            right: clamp(1rem, 4vw, 2rem);
+        }
+
+        .cs-image-group {
+            /* scaling the font size with the view width */
+            font-size: ~"min(2.31vw, .7em)";
+            /* using ems so we can use font size to scale the whole section */
+            width: (631/16em);
+            height: (636/16em);
+            position: relative;
+        }
+
+        .cs-picture {
+            border-radius: (24/16em);
+            /* clips img tag corners */
+            overflow: hidden;
+            position: absolute;
+            display: block;
+
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                /* makes image act like a background image */
+                object-fit: cover;
+            }
+        }
+
+        .cs-picture1 {
+            width: (522/16em);
+            height: (581/16em);
+            left: 0;
+            top: 0;
+        }
+
+        .cs-picture2 {
+            width: (414/16em);
+            height: (400/16em);
+            background-color: var(--white);
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 40px;
+            /* 6px - 12px */
+            border: clamp(0.375em, 1.5vw, 0.75em) solid var(--white);
+            right: 0;
+            bottom: 0;
+        }
+    }
+}
+
+/* Desktop - 1024px */
+@media only screen and (min-width: 64rem) {
+    #RPsbs-313,
+    #RPsbsr-313 {
+        .cs-container {
+            flex-flow: row;
+            justify-content: space-between;
+            gap: (52/16rem);
+        }
+
+        .cs-image-group {
+            font-size: ~"min(1.2vw, 1em)";
+            flex: none;
+        }
+
+        .cs-content {
+            margin: 0;
+        }
+    }
+}
+
+/*-- -------------------------- -->
+<---    Side By Side Reverse    -->
+<--- -------------------------- -*/
+
+/* Mobile - 360px */
+@media only screen and (min-width: 0rem) {
+    #RPsbsr-313 {
+        background-color: var(--lightGrey);
+        .cs-picture1 {
+            left: auto;
+            right: 0;
+        }
+
+        .cs-picture2 {
+            right: auto;
+            left: 0;
+        }
+
+        .cs-quote {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+    }
+}
+
+/* Desktop - 1024px */
+@media only screen and (min-width: 64rem) {
+    #RPsbsr-313 {
+        .cs-image-group {
+            /* sends it to the right in the 2nd position */
+            order: 2;
+        }
+    }
+}
+
+/*-- -------------------------- -->
+<---          Gallery           -->
+<--- -------------------------- -*/
+
+/* Mobile - 360px */
+@media only screen and (min-width: 0rem) {
+    #gallery-48 {
+        padding: var(--sectionPadding);
+        position: relative;
+
+        .cs-container {
+            width: 100%;
+            max-width: (1280/16rem);
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* 48px - 64px */
+            gap: clamp(3rem, 6vw, 4rem);
+        }
+
+        .cs-content {
+            /* set text align to left if content needs to be left aligned */
+            text-align: center;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            /* centers content horizontally, set to flex-start to left align */
+            align-items: center;
+        }
+
+        .cs-title {
+            margin: 0;
+            max-width: 20ch;
+        }
+
+        .cs-image-group {
+            /* used rem so it doesn't scale with the font size of on parent */
+            font-size: ~"min(1.1vw, 1em)";
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            /* 8px - 20px */
+            gap: clamp(0.5rem, 2vw, 1.25rem);
+        }
+
+        .cs-row {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            /* 8px - 20px */
+            gap: clamp(0.5rem, 2vw, 1.25rem);
+        }
+
+        .cs-picture {
+            width: 100%;
+            position: relative;
+            display: block;
+            border-radius: (8/16rem);
+            overflow: hidden;
+
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .cs-row-1 {
+            .cs-picture-1 {
+                height: (567/16em);
+            }
+
+            .cs-picture-2 {
+                height: (629/16em);
+            }
+
+            .cs-picture-3 {
+                height: (512/16em);
+            }
+        }
+
+        .cs-row-2 {
+            .cs-picture-1 {
+                height: (492/16em);
+            }
+
+            .cs-picture-2 {
+                height: (517/16em);
+            }
+
+            .cs-picture-3 {
+                height: (629/16em);
+            }
+        }
+
+        .cs-row-3 {
+            .cs-picture-1 {
+                height: (625/16em);
+            }
+
+            .cs-picture-2 {
+                height: (452/16em);
+            }
+
+            .cs-picture-3 {
+                height: (629/16em);
+            }
+        }
+    }
+}
+
+/*-- -------------------------- -->
+<---          Reviews           -->
+<--- -------------------------- -*/
+
+/* Mobile - 360px */
+@media only screen and (min-width: 0rem) {
+    #reviews-67 {
+        padding: var(--sectionPadding);
+
+        .cs-container {
+            width: 100%;
+            max-width: (1280/16rem);
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* 48px - 64px */
+            gap: clamp(3rem, 6vw, 4rem);
+        }
+
+        .cs-content {
+            /* set text align to left if content needs to be left aligned */
+            text-align: center;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            /* centers content horizontally, set to flex-start to left align */
+            align-items: center;
+        }
+
+        .cs-card-group {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            column-gap: (20/16rem);
+            row-gap: (64/16rem);
+        }
+
+        .cs-item {
+            text-align: left;
+            list-style: none;
+            width: 100%;
+            max-width: (630/16rem);
+            /* pushes up the same amount the cs-item-img overlaps the card */
+            margin: (40/16rem) 0 0 0;
+            /* Padding L & R - 16px - 32px */
+            padding: (60/16rem) clamp(1rem, 3.2vw, 2rem) 0;
+            /* 32px - 40px */
+            padding-bottom: clamp(2rem, 5.4vw, 2.5rem);
+            box-shadow: 0px 20px 39px 0px rgba(0, 0, 0, 0.05);
+            border-radius: (8/16rem);
+            background: var(--white);
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: center;
+            /* Prevents padding from affecting height & width */
+            box-sizing: border-box;
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+
+        .cs-item-img {
+            width: (80/16rem);
+            height: (80/16rem);
+            position: absolute;
+            top: (-40/16rem);
+        }
+
+        .cs-item-text {
+            font-size: (16/16rem);
+            line-height: 1.5em;
+            margin: 0 0 (20/16rem);
+            padding-bottom: (20/16rem);
+            color: var(--bodyTextColor);
+            border-bottom: 1px solid var(--lightGrey);
+        }
+
+        .cs-info {
+            width: 100%;
+            /* margin-top auto pushes up against the rest of the card, that way when one card has more text than the other, the reviewer info is always pushed to the bottom and lined up with the rest of them.  This ensures better responsiveness for changing content */
+            margin: auto 0 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cs-flex-group {
+            width: 100%;
+            margin: 0;
+        }
+
+        .cs-name {
+            font-size: (16/16rem);
+            line-height: 1.5em;
+            font-weight: 700;
+            width: 40%;
+            margin: 0;
+            display: block;
+            color: var(--headerColor);
+        }
+
+        .cs-desc {
+            font-size: (14/16rem);
+            font-weight: 400;
+            color: var(--charcoal);
+            display: block;
+        }
+
+        .cs-item-stars {
+            width: (96/16rem);
+            height: (16/16rem);
+        }
+
+        .cs-button-solid {
+            font-size: var(--buttonFontSize);
+            /* 46px - 56px */
+            line-height: clamp(2.875rem, 5.5vw, 3.5rem);
+            text-decoration: none;
+            font-weight: 700;
+            text-align: center;
+            margin: 0;
+            color: var(--white);
+            min-width: (150/16rem);
+            padding: 0 (24/16rem);
+            background-color: var(--primary);
+            border-radius: (4/16rem);
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+            /* prevents padding from adding to the width */
+            box-sizing: border-box;
+
+            &:before {
+                content: "";
+                position: absolute;
+                height: 100%;
+                width: 0%;
+                background: var(--nearBlack);
+                opacity: 1;
+                top: 0;
+                left: 0;
+                z-index: -1;
+                border-radius: (4/16rem);
+                transition: width 0.3s;
+            }
+
+            &:hover {
+                &:before {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+/* Tablet - 768px */
+@media only screen and (min-width: 48rem) {
+    #reviews-67 {
+        .cs-card-group {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+}
+
+
+/*-- -------------------------- -->
+<---    Mobile Section Headers  -->
+<--- -------------------------- -*/
+
+/* Mobile - bigger section headings (desktop sizes are unchanged) */
+@media only screen and (max-width: 47.9375rem) {
+    #training,
+    #experience,
+    #trainers,
+    #testimonials,
+    #instagram,
+    #memberships,
+    #faq {
+        .cs-title {
+            /* 58px on a 390px phone */
+            font-size: min(15vw, 4rem);
+        }
+    }
+
+    /* longer sentence-style headings stay a little smaller so they don't break word by word */
+    #brand-statement .cs-title,
+    #featured-story .cs-title {
+        /* 45px on a 390px phone */
+        font-size: min(11.5vw, 3.25rem);
+    }
+}
+
+
+/*-- -------------------------- -->
+<---   Page-wide motion system  -->
+<--- -------------------------- -*/
+
+/* The same moves as the hero and brand statement, applied section by section:
+   scroll drift (--drift from drift.js) on photos and cards. */
+
+/* Photo parallax inside a fixed frame - the image sits slightly zoomed and slides as it passes */
+#featured-story .cs-picture img,
+#instagram .cs-tile img {
+    scale: 1.12;
+    translate: 0 calc(var(--drift, 0) * -5%);
+}
+
+/* Desktop - cards drift against each other as they pass (stacked cards on phones stay still so they never overlap) */
+@media only screen and (min-width: 64rem) {
+    /* Training - outer cards rise, the middle card sinks */
+    #training .cs-item {
+        transform: translateY(calc(var(--drift, 0) * -1.5rem));
+
+        &:nth-child(2) {
+            transform: translateY(calc(var(--drift, 0) * 2rem));
+        }
+    }
+
+    /* Trainers - the two cards move in opposite directions */
+    #trainers .cs-item {
+        transform: translateY(calc(var(--drift, 0) * -2rem));
+
+        &:nth-child(2) {
+            transform: translateY(calc(var(--drift, 0) * 2rem));
+        }
+    }
+}

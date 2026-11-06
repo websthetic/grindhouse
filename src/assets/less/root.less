@@ -1,0 +1,501 @@
+/*-- -------------------------- -->
+<---        Core Styles         -->
+<--- -------------------------- -*/
+
+/* Grindhouse Core Styles + Reset */
+@media only screen and (min-width: 0px) {
+	/* All elements in the library derive their variables and base styles from this central sheet, simplifying site-wide edits. For instance, if you want to modify how your h2's appear across the site, you just update it once in the global styles, and the changes apply everywhere. */
+	:root {
+		/* Brand Palette */
+		--boxingRed: #d52b35;
+		--nearBlack: #111111;
+		--charcoal: #2a2a2a;
+		--lightGrey: #ededed;
+		--white: #ffffff;
+
+		/* Paper grain texture used on the light backgrounds */
+		--paperTexture: url("https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/grain-texture-bg.webp");
+
+		/* Semantic Roles */
+		--primary: var(--boxingRed);
+		--primaryLight: var(--boxingRed);
+		--secondary: var(--charcoal);
+		--secondaryLight: var(--lightGrey);
+		--headerColor: var(--nearBlack);
+		--bodyTextColor: var(--charcoal);
+		--bodyTextColorWhite: var(--white);
+
+		/* Type Scale - desktop size / line height from the style guide, sizes scale down fluidly on smaller screens */
+		/* Hero / Display: 96 / 100px (48px on mobile) */
+		--displayFontSize: clamp(3rem, 8vw, 6rem);
+		--displayLineHeight: 1.042;
+		/* H1: 72 / 76px (40px on mobile) */
+		--h1FontSize: clamp(2.5rem, 6vw, 4.5rem);
+		--h1LineHeight: 1.056;
+		/* H2: 56 / 62px (36px on mobile) */
+		--h2FontSize: clamp(2.25rem, 4.6vw, 3.5rem);
+		--h2LineHeight: 1.107;
+		/* H3: 36 / 42px (28px on mobile) */
+		--h3FontSize: clamp(1.75rem, 3vw, 2.25rem);
+		--h3LineHeight: 1.167;
+		/* Card title: 28 / 34px (22px on mobile) */
+		--cardTitleFontSize: clamp(1.375rem, 2.3vw, 1.75rem);
+		--cardTitleLineHeight: 1.214;
+		/* Body Large: 18 / 29px */
+		--bodyLargeFontSize: 1.125rem;
+		--bodyLargeLineHeight: 1.611;
+		/* Body: 16 / 26px */
+		--bodyFontSize: 1rem;
+		--bodyLineHeight: 1.625;
+		/* Navigation: 15 / 22px */
+		--navFontSize: 0.9375rem;
+		--navLineHeight: 1.467;
+		/* Buttons: 15 / 22px */
+		--buttonFontSize: 0.9375rem;
+		--buttonLineHeight: 1.467;
+		/* Eyebrow labels: 12 / 18px */
+		--topperFontSize: 0.75rem;
+		--topperLineHeight: 1.5;
+
+		/* section titles use the H2 size */
+		--headerFontSize: var(--h2FontSize);
+		/* 60px - 100px top and bottom */
+		--sectionPadding: clamp(3.75rem, 7.82vw, 6.25rem) 1rem;
+
+		--headerFont: "Anton", Impact, "Arial Narrow", sans-serif;
+		--bodyFont: "Karla", Arial, sans-serif;
+	}
+
+	html,
+	body {
+		margin: 0;
+		padding: 0;
+		/* clip (not hidden) so position: sticky still works inside the page */
+		overflow-x: clip;
+		font-family: var(--bodyFont);
+		font-size: 100%;
+		color: var(--bodyTextColor);
+		/* textured page background */
+		background-color: var(--lightGrey);
+		background-image: var(--paperTexture);
+		background-blend-mode: multiply;
+	}
+
+	*,
+	*:before,
+	*:after {
+		/* prevents padding from affecting height and width */
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+
+	.cs-topper {
+		font-size: var(--topperFontSize);
+		line-height: var(--topperLineHeight);
+		text-transform: uppercase;
+		text-align: inherit;
+		letter-spacing: 0.1em;
+		font-weight: 700;
+		color: var(--primary);
+		margin-bottom: 0.25rem;
+		display: block;
+	}
+
+	.cs-title {
+		font-size: var(--headerFontSize);
+		font-weight: 800;
+		line-height: var(--h2LineHeight);
+		text-align: inherit;
+		max-width: 43.75rem;
+		margin: 0 0 1rem 0;
+		color: var(--headerColor);
+		position: relative;
+	}
+
+	.cs-text {
+		font-size: var(--bodyFontSize);
+		line-height: var(--bodyLineHeight);
+		text-align: inherit;
+		width: 100%;
+		max-width: 40.625rem;
+		margin: 0;
+		color: var(--bodyTextColor);
+	}
+}
+
+/* Components + Utilities */
+@media only screen and (min-width: 0px) {
+	// Hidden screen reader skip nav button
+	.skip {
+		z-index: -1111111;
+		position: absolute;
+		top: 0;
+		left: 0;
+		opacity: 0;
+	}
+
+	// Buttons - can be replaced using Grindhouse's "Button" Stitches. Make sure to clear the default .cs-button-solid/outline styles from any new stitches you place.
+	.cs-button-solid {
+		z-index: 1;
+		position: relative;
+		display: inline-block;
+		background-color: var(--primary);
+		width: auto;
+		padding: (16/16rem) (32/16rem);
+		text-decoration: none;
+		text-transform: uppercase;
+		font-size: var(--buttonFontSize);
+		line-height: var(--buttonLineHeight);
+		font-weight: 700;
+		overflow: hidden;
+
+		// Transition Properties
+		color: var(--bodyTextColorWhite);
+		transition: color 0.3s;
+		transition-delay: 0.1s;
+		text-align: center;
+
+		&:hover {
+			color: var(--white);
+
+			&:before {
+				/* sweep in from the left */
+				transform: scaleX(1);
+				transform-origin: left;
+			}
+		}
+
+		&:before {
+			z-index: -1;
+			position: absolute;
+			top: 0;
+			left: 0;
+			content: "";
+			opacity: 1;
+			display: block;
+			background-color: var(--nearBlack);
+			height: 100%;
+
+			//Transition properties - same motion as the nav link underline: in left-to-right, out toward the right
+			width: 100%;
+			transform: scaleX(0);
+			transform-origin: right;
+			transition: transform 0.3s ease;
+		}
+	}
+
+	.cs-button-outline {
+		z-index: 1;
+		position: relative;
+		display: inline-block;
+		width: auto;
+		padding: (16/16rem) (32/16rem);
+		text-decoration: none;
+		text-transform: uppercase;
+		font-size: var(--buttonFontSize);
+		line-height: var(--buttonLineHeight);
+		font-weight: 700;
+		border: 2px solid var(--nearBlack);
+
+		// Transition Properties
+		color: var(--nearBlack);
+		transition: color 0.3s;
+		transition-delay: 0.1s;
+		text-align: center;
+
+		&:hover {
+			color: var(--white);
+
+			&:before {
+				/* sweep in from the left */
+				transform: scaleX(1);
+				transform-origin: left;
+			}
+		}
+
+		&:before {
+			z-index: -1;
+			position: absolute;
+			top: 0;
+			left: 0;
+			content: "";
+			opacity: 1;
+			display: block;
+			background-color: var(--nearBlack);
+			height: 100%;
+
+			//Transition properties - same motion as the nav link underline: in left-to-right, out toward the right
+			width: 100%;
+			transform: scaleX(0);
+			transform-origin: right;
+			transition: transform 0.3s ease;
+		}
+	}
+
+	// Utilities - small classes useful in various common situations
+	.cs-color {
+		color: var(--primary);
+	}
+
+	.cs-bold {
+		font-weight: 700;
+	}
+
+	.cs-hide-on-mobile {
+		display: none !important;
+	}
+}
+
+/* Desktop Utilities */
+@media only screen and (min-width: 64rem) {
+	.cs-hide-on-mobile {
+		display: block !important;
+	}
+
+	.cs-hide-on-desktop {
+		display: none !important;
+	}
+}
+
+/* Base Element Styles */
+@media only screen and (min-width: 0px) {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: var(--headerFont);
+		text-transform: uppercase;
+		line-height: 1.2em;
+		color: var(--headerColor);
+	}
+
+	h1 {
+		font-size: var(--h1FontSize);
+		font-weight: 800;
+		line-height: var(--h1LineHeight);
+	}
+
+	h2 {
+		font-size: var(--h2FontSize);
+		font-weight: 800;
+		line-height: var(--h2LineHeight);
+	}
+
+	h3 {
+		font-size: var(--h3FontSize);
+		font-weight: 800;
+		line-height: var(--h3LineHeight);
+	}
+
+	p,
+	li,
+	a {
+		font-size: var(--bodyFontSize);
+		line-height: var(--bodyLineHeight);
+	}
+
+	p,
+	li {
+		color: var(--bodyTextColor);
+
+		a {
+			color: var(--primary);
+		}
+	}
+
+	a,
+	button {
+		&:hover {
+			cursor: pointer;
+		}
+	}
+
+}
+
+/* Fonts */
+@media only screen and (min-width: 0px) {
+	// Headings: Anton · Body: Karla
+
+	/* ArchivoNarrow-SemiBold */
+	@font-face {
+		font-style: normal;
+		font-family: "Archivo Narrow";
+		font-weight: 600;
+		font-display: swap;
+		src: url("/assets/fonts/ArchivoNarrow-SemiBold.woff2") format("woff2"), url("/assets/fonts/ArchivoNarrow-SemiBold.woff") format("woff");
+	}
+
+	/* ArchivoNarrow-SemiBoldItalic */
+	@font-face {
+		font-style: italic;
+		font-family: "Archivo Narrow";
+		font-weight: 600;
+		font-display: swap;
+		src: url("/assets/fonts/ArchivoNarrow-SemiBoldItalic.woff2") format("woff2"), url("/assets/fonts/ArchivoNarrow-SemiBoldItalic.woff") format("woff");
+	}
+
+	/* ArchivoNarrow-Bold */
+	@font-face {
+		font-style: normal;
+		font-family: "Archivo Narrow";
+		font-weight: 700;
+		font-display: swap;
+		src: url("/assets/fonts/ArchivoNarrow-Bold.woff2") format("woff2"), url("/assets/fonts/ArchivoNarrow-Bold.woff") format("woff");
+	}
+
+	/* ArchivoNarrow-BoldItalic */
+	@font-face {
+		font-style: italic;
+		font-family: "Archivo Narrow";
+		font-weight: 700;
+		font-display: swap;
+		src: url("/assets/fonts/ArchivoNarrow-BoldItalic.woff2") format("woff2"), url("/assets/fonts/ArchivoNarrow-BoldItalic.woff") format("woff");
+	}
+
+	/* Karla-Regular */
+	@font-face {
+		font-style: normal;
+		font-family: "Karla";
+		font-weight: 400;
+		font-display: swap;
+		src: url("/assets/fonts/Karla-Regular.woff2") format("woff2"), url("/assets/fonts/Karla-Regular.woff") format("woff");
+	}
+
+	/* Karla-Italic */
+	@font-face {
+		font-style: italic;
+		font-family: "Karla";
+		font-weight: 400;
+		font-display: swap;
+		src: url("/assets/fonts/Karla-Italic.woff2") format("woff2"), url("/assets/fonts/Karla-Italic.woff") format("woff");
+	}
+
+	/* Karla-SemiBold */
+	@font-face {
+		font-style: normal;
+		font-family: "Karla";
+		font-weight: 600;
+		font-display: swap;
+		src: url("/assets/fonts/Karla-SemiBold.woff2") format("woff2"), url("/assets/fonts/Karla-SemiBold.woff") format("woff");
+	}
+
+	/* Karla-SemiBoldItalic */
+	@font-face {
+		font-style: italic;
+		font-family: "Karla";
+		font-weight: 600;
+		font-display: swap;
+		src: url("/assets/fonts/Karla-SemiBoldItalic.woff2") format("woff2"), url("/assets/fonts/Karla-SemiBoldItalic.woff") format("woff");
+	}
+
+	/* Karla-Bold */
+	@font-face {
+		font-style: normal;
+		font-family: "Karla";
+		font-weight: 700;
+		font-display: swap;
+		src: url("/assets/fonts/Karla-Bold.woff2") format("woff2"), url("/assets/fonts/Karla-Bold.woff") format("woff");
+	}
+
+	/* Anton - single weight, registered across the full weight range so headings set to 700/800 use it as-is instead of a faux bold */
+	@font-face {
+		font-style: normal;
+		font-family: "Anton";
+		font-weight: 100 900;
+		font-display: swap;
+		src: url("/assets/fonts/Anton-Regular.woff2") format("woff2"), url("/assets/fonts/Anton-Regular.woff") format("woff");
+	}
+
+	/* Karla-ExtraBold */
+	@font-face {
+		font-style: normal;
+		font-family: "Karla";
+		font-weight: 800;
+		font-display: swap;
+		src: url("/assets/fonts/Karla-ExtraBold.woff2") format("woff2"), url("/assets/fonts/Karla-ExtraBold.woff") format("woff");
+	}
+
+	/* Karla-BoldItalic */
+	@font-face {
+		font-style: italic;
+		font-family: "Karla";
+		font-weight: 700;
+		font-display: swap;
+		src: url("/assets/fonts/Karla-BoldItalic.woff2") format("woff2"), url("/assets/fonts/Karla-BoldItalic.woff") format("woff");
+	}
+}
+
+/*-- -------------------------- -->
+<---        Scroll Reveal       -->
+<--- -------------------------- -*/
+
+/* Tagged by /assets/js/reveal.js, which skips itself for reduced-motion visitors and browsers
+   without IntersectionObserver, so content is never left hidden. Uses the individual `translate`
+   and `scale` properties so it never clashes with the hover transforms already on the page. */
+@media (prefers-reduced-motion: no-preference) {
+	/* !important only until the reveal finishes (.is-settled), so it wins over each section's own
+	   transitions (hover effects), which take back over afterwards */
+	[data-reveal]:not(.is-settled) {
+		transition:
+			opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+			translate 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+			clip-path 1.1s cubic-bezier(0.65, 0, 0.25, 1) !important;
+		transition-delay: var(--reveal-delay, 0ms) !important;
+		will-change: opacity, translate;
+	}
+
+	/* headings - each line rises out of a mask, one after the other (like the hero title) */
+	[data-reveal="lines"] .cs-line {
+		display: block;
+	}
+
+	[data-reveal="lines"]:not(.is-settled) .cs-line {
+		transition:
+			clip-path 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+			translate 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+		transition-delay: calc(var(--reveal-delay, 0ms) + var(--line-delay, 0ms)) !important;
+	}
+
+	[data-reveal="lines"] .cs-line:nth-child(2) {
+		--line-delay: 120ms;
+	}
+
+	[data-reveal="lines"]:not(.is-revealed) .cs-line {
+		clip-path: inset(-20% -5% 100% -5%);
+		translate: 0 60%;
+	}
+
+	/* generous edges so no part of a glyph or outline is clipped once it lands */
+	[data-reveal="lines"].is-revealed .cs-line {
+		clip-path: inset(-20% -5% -20% -5%);
+	}
+
+	/* fade in and rise */
+	[data-reveal="up"]:not(.is-revealed) {
+		opacity: 0;
+		translate: 0 2.5rem;
+	}
+
+	/* photo wipes open from the bottom while the image settles from a slight zoom.
+	   The clip sits on the image, not the observed box, so IntersectionObserver still sees the box. */
+	[data-reveal="clip"] {
+		&:not(.is-settled) img {
+			transition:
+				clip-path 1.1s cubic-bezier(0.65, 0, 0.25, 1),
+				scale 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) !important;
+			transition-delay: var(--reveal-delay, 0ms) !important;
+		}
+
+		&:not(.is-revealed) img {
+			clip-path: inset(100% 0 0 0);
+			scale: 1.15;
+		}
+
+		&.is-revealed img {
+			clip-path: inset(0 0 0 0);
+		}
+	}
+}

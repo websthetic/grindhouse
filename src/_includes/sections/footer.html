@@ -1,0 +1,74 @@
+<!-- ============================================ -->
+<!--                   Footer                     -->
+<!-- ============================================ -->
+
+<footer id="cs-footer-275">
+    <div class="cs-container">
+        <!-- CTA band -->
+        <div class="cs-cta">
+            <h2 class="cs-cta-title">
+                <span class="cs-line">New to</span>
+                <span class="cs-line cs-accent">Boxing?</span>
+            </h2>
+            <a href="#" class="cs-button-solid">Book Your Trial</a>
+        </div>
+
+        <div class="cs-main">
+            <!-- Logo Group -->
+            <div class="cs-logo-group">
+                <a aria-label="Grindhouse home page" class="cs-logo" href="/">
+                    <img class="cs-logo-img" aria-hidden="true" loading="lazy" decoding="async" src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/grindhouse-logo.png" alt="" width="256" height="92">
+                </a>
+                <p class="cs-text">
+                    Grindhouse: Where fitness meets expertise. Top-notch training, knowledgeable staff, and unbeatable results.
+                </p>
+                <div class="cs-social">
+                    <a class="cs-social-link" aria-label="Grindhouse on Instagram" href="{{ client.socials.instagram }}" target="_blank" rel="noopener">
+                        <img class="cs-social-img" aria-hidden="true" loading="lazy" decoding="async" src="/assets/svgs/instagram.svg" alt="" width="14" height="14">
+                    </a>
+                </div>
+            </div>
+
+            <!-- Explore -->
+            <ul class="cs-nav">
+                <li class="cs-nav-li"><span class="cs-header">Explore</span></li>
+                <li class="cs-nav-li"><a class="cs-nav-link" href="/">Home</a></li>
+                <li class="cs-nav-li"><a class="cs-nav-link" href="/#brand-statement">About</a></li>
+                <li class="cs-nav-li"><a class="cs-nav-link" href="/#training">Training</a></li>
+                <li class="cs-nav-li"><a class="cs-nav-link" href="/#memberships">Memberships</a></li>
+                <li class="cs-nav-li"><a class="cs-nav-link" href="#">Schedule</a></li>
+                <li class="cs-nav-li"><a class="cs-nav-link" href="/#faq">FAQ</a></li>
+            </ul>
+
+            <!-- Hours -->
+            <div class="cs-hours">
+                <span class="cs-header">Hours</span>
+                <dl class="cs-hours-list">
+                    {%- for row in client.hours %}
+                    <div class="cs-hours-row">
+                        <dt>{{ row.days }}</dt>
+                        <dd>{{ row.time }}</dd>
+                    </div>
+                    {%- endfor %}
+                </dl>
+            </div>
+
+            <!-- Connect -->
+            <div class="cs-connect">
+                <span class="cs-header">Connect</span>
+                <a class="cs-contact-link cs-address" href="{{ client.address.mapLink }}" target="_blank" rel="noopener">
+                    {{ client.address.lineOne }},<br>
+                    {{ client.address.city }}, {{ client.address.state }}<br>
+                    {{ client.address.zip }}, Canada
+                </a>
+                <a class="cs-button-outline cs-email" href="mailto:{{ client.email }}">Email Us</a>
+            </div>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="cs-bottom">
+            <span class="cs-copyright">&copy; {{ client.year }} {{ client.name }}. All rights reserved.</span>
+            <a class="cs-top" href="#main">Back to top <svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="square"><path d="M12 20V5M6 11l6-6 6 6"/></svg></a>
+        </div>
+    </div>
+</footer>

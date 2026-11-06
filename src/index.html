@@ -1,0 +1,622 @@
+---
+title: "Grindhouse | Boxing & Semi-Private Training | Mississauga, ON"
+description: "Grindhouse Mississauga is a boutique fitness club offering boxing, semi-private training, private coaching and running & hybrid programs for every level."
+permalink: "/"
+tags: "sitemap" # content/content.json will make sure that all pages in content/ are marked with a "sitemap" tag, for automatic sitemap generation. As index.html is not in content/, we need to add it here to ensure the root page is included in the sitemap generation
+---
+
+{% extends "layouts/base.html" %}
+
+{% block head %}
+    <!-- Critical styles are loaded first -->
+    <link rel="stylesheet" href="/assets/css/critical.css"/>
+
+    <!-- If we're in production, defer the rest of the home page styles. In development, always load it. Otherwise the site will break when hot-reload is used. -->
+    {% if client.isProduction %}
+        <link rel="preload" href="/assets/css/local.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript>
+            <link rel="stylesheet" href="/assets/css/local.css">
+        </noscript>
+
+    {% else %}
+        <link rel="stylesheet" href="/assets/css/local.css"/>
+    {% endif %}
+
+    <!-- To ensure proper validation, prevent errors, and encourage developers to check, schema's are an opt-in feature. They're very bespoke and requires some customising  -->
+    <!-- Uncomment the code below to enable Structured Data, and test it when you deploy to Netlify - https://developers.google.com/search/docs/appearance/structured-data -->
+    <!-- {% include "components/home-schema.html" %} -->
+
+    <!-- Hero scroll: headline fades, video shrinks into a card, intro copy appears -->
+    <script defer src="/assets/js/hero.js"></script>
+    <!-- Scroll drift (photos and background words move as they pass) -->
+    <script defer src="/assets/js/drift.js"></script>
+    <!-- Scroll reveal animations -->
+    <script defer src="/assets/js/reveal.js"></script>
+    <!-- Experience steps accordion -->
+    <script defer src="/assets/js/experience.js"></script>
+    <!-- Testimonials arrows -->
+    <script defer src="/assets/js/testimonials.js"></script>
+    <!-- Auto-advancing story slider -->
+    <script defer src="/assets/js/stories.js"></script>
+{% endblock %}
+
+{% block body %}
+
+    <!-- ============================================ -->
+    <!--                    Hero                      -->
+    <!-- ============================================ -->
+
+    <!-- Hero + Brand Statement - one seamless paper-textured section (see .cs-flow in critical.less).
+         On scroll the headline and buttons fade, the hero video shrinks into a card and the intro copy
+         appears beside it (see /assets/js/hero.js). -->
+    <div class="cs-flow">
+    <section id="hero-143">
+        <!-- pinned to the screen while the hero's scroll track plays -->
+        <div class="cs-stage">
+            <!-- Background Video - shown in black & white with a film grain overlay -->
+            <div class="cs-background" aria-hidden="true">
+                <video class="cs-video" autoplay muted loop playsinline preload="auto">
+                    <source src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/grindhouse-hero-video-placeholder.mp4" type="video/mp4">
+                </video>
+                <span class="cs-grain"></span>
+            </div>
+
+            <!-- headline + buttons fade out as the video shrinks -->
+            <div class="cs-container">
+                <h1 class="cs-title">
+                    <span class="cs-line cs-line-one">Train Hard.</span>
+                    <span class="cs-line cs-line-two">Work Hard.</span>
+                </h1>
+                <div class="cs-button-group">
+                    <a href="#" class="cs-button-solid">Claim Your Free Week</a>
+                    <a href="#" class="cs-button-outline">See The Training</a>
+                </div>
+            </div>
+
+            <!-- copy that appears beside the video card once it has shrunk -->
+            <div class="cs-story">
+                <!-- oversized outlined words behind the card - top line starts at the left edge, bottom line at the right edge, and they drift past each other on scroll -->
+                <span class="cs-story-word" aria-hidden="true"><span class="cs-word-line cs-word-line-one">Work Hard.</span><span class="cs-word-line cs-word-line-two">Train Hard.</span></span>
+                <p class="cs-story-text cs-story-lead">Grindhouse Mississauga is a boutique club that personalizes each fitness journey.</p>
+                <!-- Google review - desktop only, fills the bottom-left corner -->
+                <figure class="cs-story-review">
+                    <span class="cs-review-stars" role="img" aria-label="5 out of 5 stars"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg></span>
+                    <blockquote class="cs-review-quote">
+                        <p>“Honestly the best place to meet your goals.”</p>
+                    </blockquote>
+                    <figcaption class="cs-review-author">Joshua D. — Google review</figcaption>
+                </figure>
+                <p class="cs-story-text cs-story-follow">From identifying your starting point, to designing your path to success, to showing you the ropes, Grindhouse is with you every step of the way.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--               Brand Statement                -->
+    <!-- ============================================ -->
+
+    <section id="brand-statement">
+        <div class="cs-container">
+            <div class="cs-intro">
+                <h2 class="cs-title"><span class="cs-title-line cs-line">More than a place to train.</span> <span class="cs-title-line cs-line">A place to belong.</span></h2>
+                <!-- fallback only: shown when the hero scroll effect is off (reduced motion / no script),
+                     since the hero shows this copy beside the video card otherwise -->
+                <p class="cs-text cs-hero-fallback">
+                    Grindhouse Mississauga is a boutique club that personalizes each fitness journey. From identifying your starting point, to designing your path to success, to showing you the ropes, Grindhouse is with you every step of the way.
+                </p>
+            </div>
+        </div>
+
+        <!-- Full-bleed photo collage with the feature text overlapping it -->
+        <div class="cs-collage">
+            <div class="cs-photo cs-photo-1">
+                <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/running-%26-hybrid-programs.jpg" alt="Member running on a treadmill" width="800" height="600" loading="lazy" decoding="async" style="object-position: 50% 70%;">
+            </div>
+            <div class="cs-photo cs-photo-2">
+                <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/semi-private-programs.jpg" alt="Members sparring during a semi-private session" width="800" height="600" loading="lazy" decoding="async" style="object-position: 50% 35%;">
+            </div>
+            <div class="cs-photo cs-photo-3">
+                <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/private-coaching.jpg" alt="Coach holding pads for a member" width="800" height="600" loading="lazy" decoding="async" style="object-position: 50% 40%;">
+            </div>
+            <div class="cs-photo cs-photo-4">
+                <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/grindhouse-brand-statement-bg.jpg" alt="Member working the heavy bag" width="800" height="600" loading="lazy" decoding="async" style="object-position: 75% 30%;">
+            </div>
+            <div class="cs-feature">
+                <p class="cs-big" aria-label="Established 2020, Mississauga, Ontario">
+                    <span class="cs-big-line">Est. 2020</span>
+                    <span class="cs-big-sub">Mississauga, ON</span>
+                </p>
+                <a href="/#trainers" class="cs-button-solid">Our Story</a>
+            </div>
+        </div>
+    </section>
+    </div>
+
+    <!-- ============================================ -->
+    <!--                   Training                   -->
+    <!-- ============================================ -->
+
+    <section id="training">
+        <div class="cs-container">
+            <div class="cs-header">
+                <h2 class="cs-title">
+                    <span class="cs-line">Dedicated to</span>
+                    <span class="cs-line">your goals</span>
+                </h2>
+                <p class="cs-text">
+                    Train in a small group, go one-on-one with a coach, or build your engine. Pick your path, or combine them.
+                </p>
+            </div>
+            <ul class="cs-card-group">
+                <li class="cs-item" data-drift>
+                    <a href="#" class="cs-link">
+                        <span class="cs-picture">
+                            <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/semi-private-programs.jpg" alt="Coach working with a member on pads during a semi-private session" width="480" height="640" loading="lazy" decoding="async">
+                        </span>
+                        <span class="cs-info">
+                            <h3 class="cs-h3">Semi-Private Training</h3>
+                            <span class="cs-item-text">Small-group sessions with a coach who knows your name and your numbers. More attention, faster results.</span>
+                            <span class="cs-explore">Explore <svg class="cs-arrow" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="square"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+                        </span>
+                    </a>
+                </li>
+                <li class="cs-item" data-drift>
+                    <a href="#" class="cs-link">
+                        <span class="cs-picture">
+                            <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/private-coaching.jpg" alt="Coach holding pads for a member in a one-on-one session" width="480" height="640" loading="lazy" decoding="async">
+                        </span>
+                        <span class="cs-info">
+                            <h3 class="cs-h3">Private Coaching</h3>
+                            <span class="cs-item-text">One-on-one programming built entirely around your goals, your schedule and your starting point.</span>
+                            <span class="cs-explore">Explore <svg class="cs-arrow" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="square"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+                        </span>
+                    </a>
+                </li>
+                <li class="cs-item" data-drift>
+                    <a href="#" class="cs-link">
+                        <span class="cs-picture">
+                            <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/running-%26-hybrid-programs.jpg" alt="Member running on a treadmill" width="480" height="640" loading="lazy" decoding="async">
+                        </span>
+                        <span class="cs-info">
+                            <h3 class="cs-h3">Running &amp; Hybrid Programs</h3>
+                            <span class="cs-item-text">Engine and strength, trained together, for race day, the ring and everything in between.</span>
+                            <span class="cs-explore">Explore <svg class="cs-arrow" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="square"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--                  Experience                  -->
+    <!-- ============================================ -->
+
+    <section id="experience">
+        <div class="cs-container">
+            <div class="cs-header">
+                <h2 class="cs-title">
+                    <span class="cs-line">The Grindhouse</span>
+                    <span class="cs-line cs-accent">Experience</span>
+                </h2>
+                <div class="cs-intro">
+                    <p class="cs-text">
+                        From your first session to your hundredth, here’s what training with us looks like.
+                    </p>
+                    <a href="#" class="cs-button-solid">Book Your Trial</a>
+                </div>
+            </div>
+            <!-- Steps - hover (or tap / tab to) a row to open it (see /assets/js/experience.js) -->
+            <ol class="cs-steps">
+                <li class="cs-item is-active">
+                    <span class="cs-number" aria-hidden="true">01</span>
+                    <h3 class="cs-h3">
+                        <button class="cs-toggle" type="button" aria-expanded="true" aria-controls="experience-step-01">Find your starting point</button>
+                    </h3>
+                    <div class="cs-detail" id="experience-step-01">
+                        <p class="cs-short">Start with a one-on-one assessment.</p>
+                        <p class="cs-long">Every new member begins with a one-on-one assessment. We learn your history, your goals and how you move, so nothing is guesswork.</p>
+                    </div>
+                    <span class="cs-icon" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+                    <!-- Placeholder photo: replace src, then delete the --fx / --fy / --z crop values -->
+                    <span class="cs-picture" aria-hidden="true">
+                        <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/grindhouse-brand-statement-bg.jpg" alt="" width="280" height="168" loading="lazy" decoding="async" style="--fx: 50%; --fy: 50%; --z: 1;">
+                    </span>
+                </li>
+                <li class="cs-item">
+                    <span class="cs-number" aria-hidden="true">02</span>
+                    <h3 class="cs-h3">
+                        <button class="cs-toggle" type="button" aria-expanded="false" aria-controls="experience-step-02">Design your path</button>
+                    </h3>
+                    <div class="cs-detail" id="experience-step-02">
+                        <p class="cs-short">A plan built around what you want.</p>
+                        <p class="cs-long">Your coach builds a plan around what you want, whether that’s learning to box, getting stronger, or training for race day.</p>
+                    </div>
+                    <span class="cs-icon" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+                    <!-- Placeholder photo: replace src, then delete the --fx / --fy / --z crop values -->
+                    <span class="cs-picture" aria-hidden="true">
+                        <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/grindhouse-brand-statement-bg.jpg" alt="" width="280" height="168" loading="lazy" decoding="async" style="--fx: 76%; --fy: 26%; --z: 2;">
+                    </span>
+                </li>
+                <li class="cs-item">
+                    <span class="cs-number" aria-hidden="true">03</span>
+                    <h3 class="cs-h3">
+                        <button class="cs-toggle" type="button" aria-expanded="false" aria-controls="experience-step-03">Learn the ropes</button>
+                    </h3>
+                    <div class="cs-detail" id="experience-step-03">
+                        <p class="cs-short">Technique first, then intensity.</p>
+                        <p class="cs-long">Small groups and hands-on coaching mean you’re never lost. Technique first, then intensity, at a pace that works for you.</p>
+                    </div>
+                    <span class="cs-icon" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+                    <!-- Placeholder photo: replace src, then delete the --fx / --fy / --z crop values -->
+                    <span class="cs-picture" aria-hidden="true">
+                        <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/grindhouse-brand-statement-bg.jpg" alt="" width="280" height="168" loading="lazy" decoding="async" style="--fx: 22%; --fy: 36%; --z: 2.2;">
+                    </span>
+                </li>
+                <li class="cs-item">
+                    <span class="cs-number" aria-hidden="true">04</span>
+                    <h3 class="cs-h3">
+                        <button class="cs-toggle" type="button" aria-expanded="false" aria-controls="experience-step-04">Grow with the crew</button>
+                    </h3>
+                    <div class="cs-detail" id="experience-step-04">
+                        <p class="cs-short">Accountability that keeps you coming back.</p>
+                        <p class="cs-long">Progress is tracked, wins are celebrated and the people around you show up. That’s the accountability that keeps you coming back.</p>
+                    </div>
+                    <span class="cs-icon" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+                    <!-- Placeholder photo: replace src, then delete the --fx / --fy / --z crop values -->
+                    <span class="cs-picture" aria-hidden="true">
+                        <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/grindhouse-brand-statement-bg.jpg" alt="" width="280" height="168" loading="lazy" decoding="async" style="--fx: 58%; --fy: 33%; --z: 2.2;">
+                    </span>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--                   Trainers                   -->
+    <!-- ============================================ -->
+
+    <section id="trainers">
+        <div class="cs-container">
+            <div class="cs-header">
+                <h2 class="cs-title"><span class="cs-line">Trainers</span></h2>
+                <a href="/#brand-statement" class="cs-link">About the club <svg class="cs-arrow" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="square"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+            </div>
+            <ul class="cs-card-group">
+                <li class="cs-item" data-drift>
+                    <div class="cs-picture">
+                        <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/sean-profile.jpeg" alt="Sean Fulgencio, Head Trainer at Grindhouse" width="568" height="600" loading="lazy" decoding="async">
+                    </div>
+                    <div class="cs-info">
+                        <span class="cs-role">Head Trainer</span>
+                        <h3 class="cs-name">Sean Fulgencio</h3>
+                        <p class="cs-bio">Leading training at Grindhouse since it opened in 2020, Sean teaches boxing, kickboxing, fitness and competition to everyone from first-timers to professionals.</p>
+                    </div>
+                </li>
+                <li class="cs-item" data-drift>
+                    <div class="cs-picture">
+                        <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/ron-profile.jpeg" alt="Ron Santo Domingo, Boxing &amp; Conditioning at Grindhouse" width="568" height="600" loading="lazy" decoding="async">
+                    </div>
+                    <div class="cs-info">
+                        <span class="cs-role">Boxing &amp; Conditioning</span>
+                        <h3 class="cs-name">Ron Santo Domingo</h3>
+                        <p class="cs-bio">Ron coaches boxing and conditioning with a focus on real results, whether the goal is self-defense, weight loss, confidence or overall fitness and wellness.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--                Featured Story                -->
+    <!-- ============================================ -->
+
+    <section id="featured-story" aria-roledescription="carousel" aria-label="Stories from the Grindhouse">
+        <div class="cs-container">
+            <!-- Story slider - auto-advances every 5s (see /assets/js/stories.js). Add or remove <li class="cs-slide"> items and matching .cs-segment buttons. -->
+            <div class="cs-viewport">
+                <!-- Posts copied from grindhouse905.com/blog - images are hotlinked from that site; move them to the CDN before launch -->
+                <ul class="cs-track">
+                    <li class="cs-slide" role="group" aria-roledescription="slide" aria-label="1 of 3">
+                        <div class="cs-picture">
+                            <img src="https://grindhouse905.com/wp-content/uploads/2026/04/41612927-3e17-4cef-a495-c7d849d1f90c.jpg" alt="Referee raising Max Tomines' arm after a win" width="640" height="560" loading="lazy" decoding="async" data-drift>
+                        </div>
+                        <div class="cs-content">
+                            <span class="cs-topper">From the Grindhouse</span>
+                            <h2 class="cs-title">Max Tomines | Road to the Boxing Dream</h2>
+                            <p class="cs-text">As the World Cup of Boxing begins April 20th in Brazil, Max Tomines will be representing Team Canada in the Elite Male 55kg division. He is focused and ready for his run at gold!</p>
+                            <a href="https://grindhouse905.com/max-tomines-road-to-the-boxing-dream/" class="cs-link">Read the story <svg class="cs-arrow" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="square"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+                        </div>
+                    </li>
+                    <li class="cs-slide" role="group" aria-roledescription="slide" aria-label="2 of 3">
+                        <div class="cs-picture">
+                            <img src="https://grindhouse905.com/wp-content/uploads/2025/02/week-3_sleep-1.jpg" alt="Boxer resting against the ropes" width="640" height="560" loading="lazy" decoding="async" data-drift>
+                        </div>
+                        <div class="cs-content">
+                            <span class="cs-topper">From the Grindhouse</span>
+                            <h2 class="cs-title">Week 3: Sleep</h2>
+                            <p class="cs-text">In our fast-paced world, sleep is often the first thing we sacrifice when life gets busy. However, the importance of quality sleep cannot be overstated.</p>
+                            <a href="https://grindhouse905.com/week-3-sleep/" class="cs-link">Read the story <svg class="cs-arrow" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="square"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+                        </div>
+                    </li>
+                    <li class="cs-slide" role="group" aria-roledescription="slide" aria-label="3 of 3">
+                        <div class="cs-picture">
+                            <img src="https://grindhouse905.com/wp-content/uploads/2025/01/week-2_nutrition-1.jpeg" alt="" width="640" height="560" loading="lazy" decoding="async" data-drift>
+                        </div>
+                        <div class="cs-content">
+                            <span class="cs-topper">From the Grindhouse</span>
+                            <h2 class="cs-title">Week 2: Nutrition</h2>
+                            <p class="cs-text">To perform at your best in boxing, proper nutrition is key. Whether you’re a beginner or experienced boxer, fueling your body correctly will enhance your training, recovery, and overall performance.</p>
+                            <a href="https://grindhouse905.com/week-2-nutrition/" class="cs-link">Read the story <svg class="cs-arrow" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="square"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="cs-controls">
+                <div class="cs-progress">
+                    <button class="cs-segment" type="button" aria-label="Show story 1"><span class="cs-fill"></span></button>
+                    <button class="cs-segment" type="button" aria-label="Show story 2"><span class="cs-fill"></span></button>
+                    <button class="cs-segment" type="button" aria-label="Show story 3"><span class="cs-fill"></span></button>
+                </div>
+                <div class="cs-arrows">
+                    <button class="cs-arrow-button cs-prev" type="button" aria-label="Previous story"><svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M15 5l-7 7 7 7"/></svg></button>
+                    <button class="cs-arrow-button cs-next" type="button" aria-label="Next story"><svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M9 5l7 7-7 7"/></svg></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--                 Testimonials                 -->
+    <!-- ============================================ -->
+
+    <section id="testimonials" aria-label="Testimonials">
+        <div class="cs-container">
+            <div class="cs-header">
+                <h2 class="cs-title"><span class="cs-line">Testimonials</span></h2>
+                <!-- Link to your Google Business reviews -->
+                <a href="#" class="cs-link">Read our Google reviews <svg class="cs-arrow" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="square"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+            </div>
+            <!-- Two show at a time; swipe or use the arrows. -->
+            <ul class="cs-card-group">
+                <li class="cs-item">
+                    <figure class="cs-figure">
+                        <blockquote class="cs-quote">
+                            <p>“Grindhouse is an elite boutique experience. Expert staff, top-notch training, and unbeatable results.”</p>
+                        </blockquote>
+                        <figcaption class="cs-author">
+                            <span class="cs-name">Kareem Hackett</span> — <span class="cs-role">Professional Boxer</span>
+                        </figcaption>
+                    </figure>
+                </li>
+                <li class="cs-item">
+                    <figure class="cs-figure">
+                        <blockquote class="cs-quote">
+                            <p>“Honestly the best place to meet your goals. Both Sean and Ron are extremely knowledgeable about combat sports, conditioning and running. They motivate you and build a plan around your physiology and schedule.”</p>
+                        </blockquote>
+                        <figcaption class="cs-author">
+                            <span class="cs-name">Joshua Deosaran</span> — <span class="cs-role">Google Review</span>
+                        </figcaption>
+                    </figure>
+                </li>
+                <li class="cs-item">
+                    <figure class="cs-figure">
+                        <blockquote class="cs-quote">
+                            <p>“Been training at this gym for a couple of months now and it’s always been a great experience. Whether you’re a complete beginner or already have experience the atmosphere is super welcoming.</p>
+                            <p>Coach Sean and Coach Ron are both amazing coaches. They really take the time to work with you, break things down, and make sure you’re improving every session. You can tell they genuinely care about your progress and push you to be better.</p>
+                            <p>Highly recommend this gym!”</p>
+                        </blockquote>
+                        <figcaption class="cs-author">
+                            <span class="cs-name">Malcolm Vaguchay-Reid</span> — <span class="cs-role">Google Review</span>
+                        </figcaption>
+                    </figure>
+                </li>
+                <li class="cs-item">
+                    <figure class="cs-figure">
+                        <blockquote class="cs-quote">
+                            <p>“A perfect place to improve in any area of your fitness goals and a super friendly environment!</p>
+                            <p>Accommodating all walks of life. From a complete beginner interested in changing their health to a professional boxer. Coach Sean and his staff will adapt to your level and push you to new limits you wouldn’t have reached!</p>
+                            <p>Love this facility and recommend it to anyone!”</p>
+                        </blockquote>
+                        <figcaption class="cs-author">
+                            <span class="cs-name">Justin Parina</span> — <span class="cs-role">Google Review</span>
+                        </figcaption>
+                    </figure>
+                </li>
+            </ul>
+            <!-- Carousel arrows -->
+            <div class="cs-arrows">
+                <button class="cs-arrow-button cs-prev" type="button" aria-label="Previous testimonials"><svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M15 5l-7 7 7 7"/></svg></button>
+                <button class="cs-arrow-button cs-next" type="button" aria-label="Next testimonials"><svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--                  Instagram                   -->
+    <!-- ============================================ -->
+
+    <section id="instagram">
+        <div class="cs-container">
+            <div class="cs-header">
+                <h2 class="cs-title">
+                    <span class="cs-line">Follow</span>
+                    <span class="cs-line cs-accent">Grindhouse</span>
+                </h2>
+                <!-- TODO: replace [@handle] with your Instagram handle -->
+                <a href="{{ client.socials.instagram }}" class="cs-link" target="_blank" rel="noopener">[@handle] on Instagram <svg class="cs-arrow" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="square"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+            </div>
+        </div>
+        <!-- Full-bleed mosaic: placeholder photos - swap each src for recent Instagram posts. Tile 1 is the large feature tile (tile 6 too on desktop). -->
+        <ul class="cs-mosaic">
+            <li class="cs-tile">
+                <a href="{{ client.socials.instagram }}" class="cs-tile-link" target="_blank" rel="noopener" aria-label="View on Instagram: Members sparring at Grindhouse">
+                    <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/semi-private-programs.jpg" alt="Members sparring at Grindhouse" width="600" height="600" loading="lazy" decoding="async" style="object-position: 50% 40%;" data-drift>
+                    <span class="cs-overlay" aria-hidden="true"><svg class="cs-ig" aria-hidden="true" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg></span>
+                </a>
+            </li>
+            <li class="cs-tile">
+                <a href="{{ client.socials.instagram }}" class="cs-tile-link" target="_blank" rel="noopener" aria-label="View on Instagram: Member working the heavy bag">
+                    <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/grindhouse-brand-statement-bg.jpg" alt="Member working the heavy bag" width="600" height="600" loading="lazy" decoding="async" style="object-position: 70% 30%;" data-drift>
+                    <span class="cs-overlay" aria-hidden="true"><svg class="cs-ig" aria-hidden="true" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg></span>
+                </a>
+            </li>
+            <li class="cs-tile">
+                <a href="{{ client.socials.instagram }}" class="cs-tile-link" target="_blank" rel="noopener" aria-label="View on Instagram: Coach holding pads for a member">
+                    <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/private-coaching.jpg" alt="Coach holding pads for a member" width="600" height="600" loading="lazy" decoding="async" style="object-position: 50% 40%;" data-drift>
+                    <span class="cs-overlay" aria-hidden="true"><svg class="cs-ig" aria-hidden="true" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg></span>
+                </a>
+            </li>
+            <li class="cs-tile">
+                <a href="{{ client.socials.instagram }}" class="cs-tile-link" target="_blank" rel="noopener" aria-label="View on Instagram: Boxer walking through smoke">
+                    <img src="/assets/images/book-now.jpg" alt="Boxer walking through smoke" width="600" height="600" loading="lazy" decoding="async" style="object-position: 50% 50%;" data-drift>
+                    <span class="cs-overlay" aria-hidden="true"><svg class="cs-ig" aria-hidden="true" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg></span>
+                </a>
+            </li>
+            <li class="cs-tile">
+                <a href="{{ client.socials.instagram }}" class="cs-tile-link" target="_blank" rel="noopener" aria-label="View on Instagram: Head Trainer Sean Fulgencio">
+                    <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/sean-profile.jpeg" alt="Head Trainer Sean Fulgencio" width="600" height="600" loading="lazy" decoding="async" style="object-position: 50% 20%;" data-drift>
+                    <span class="cs-overlay" aria-hidden="true"><svg class="cs-ig" aria-hidden="true" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg></span>
+                </a>
+            </li>
+            <li class="cs-tile">
+                <a href="{{ client.socials.instagram }}" class="cs-tile-link" target="_blank" rel="noopener" aria-label="View on Instagram: Member running on a treadmill">
+                    <img src="https://websthetic.tor1.cdn.digitaloceanspaces.com/grindhouse/running-%26-hybrid-programs.jpg" alt="Member running on a treadmill" width="600" height="600" loading="lazy" decoding="async" style="object-position: 50% 60%;" data-drift>
+                    <span class="cs-overlay" aria-hidden="true"><svg class="cs-ig" aria-hidden="true" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg></span>
+                </a>
+            </li>
+        </ul>
+    </section>
+
+    <!-- ============================================ -->
+    <!--                 Memberships                  -->
+    <!-- ============================================ -->
+
+    <section id="memberships">
+        <div class="cs-container">
+            <div class="cs-header">
+                <h2 class="cs-title"><span class="cs-line">Memberships</span></h2>
+                <p class="cs-text">
+                    Start with a one-week trial, then pick the membership that fits your goals and your schedule.
+                </p>
+            </div>
+            <!-- Plans 2 and 3 are placeholders: add your real membership names, prices and inclusions -->
+            <ul class="cs-plan-group">
+                <li class="cs-plan cs-featured">
+                    <span class="cs-badge">Start here</span>
+                    <h3 class="cs-plan-name">Introductory Trial</h3>
+                    <p class="cs-price"><span class="cs-amount">$45</span> <span class="cs-term">/ 1 week</span></p>
+                    <p class="cs-plan-text">The best way to experience Grindhouse. Try the training, meet the coaches and see if it’s the right fit.</p>
+                    <ul class="cs-features">
+                            <li class="cs-feature"><svg class="cs-check" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>One-on-one assessment with a coach</span></li>
+                            <li class="cs-feature"><svg class="cs-check" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Try semi-private training sessions</span></li>
+                            <li class="cs-feature"><svg class="cs-check" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>[What else is included, e.g. number of sessions, gloves and wraps]</span></li>
+                    </ul>
+                    <a href="#" class="cs-button-solid cs-plan-button">Book Your Trial</a>
+                </li>
+                <li class="cs-plan">
+                    <span class="cs-badge">[Membership 2]</span>
+                    <h3 class="cs-plan-name">[Plan name]</h3>
+                    <p class="cs-price"><span class="cs-amount">[$—]</span> <span class="cs-term">/ [month]</span></p>
+                    <p class="cs-plan-text">[One line on who this plan is for.]</p>
+                    <ul class="cs-features">
+                            <li class="cs-feature"><svg class="cs-check" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>[Included feature]</span></li>
+                            <li class="cs-feature"><svg class="cs-check" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>[Included feature]</span></li>
+                            <li class="cs-feature"><svg class="cs-check" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>[Included feature]</span></li>
+                    </ul>
+                    <a href="#" class="cs-button-outline cs-plan-button">Get Started</a>
+                </li>
+                <li class="cs-plan">
+                    <span class="cs-badge">[Membership 3]</span>
+                    <h3 class="cs-plan-name">[Plan name]</h3>
+                    <p class="cs-price"><span class="cs-amount">[$—]</span> <span class="cs-term">/ [month]</span></p>
+                    <p class="cs-plan-text">[One line on who this plan is for.]</p>
+                    <ul class="cs-features">
+                            <li class="cs-feature"><svg class="cs-check" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>[Included feature]</span></li>
+                            <li class="cs-feature"><svg class="cs-check" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>[Included feature]</span></li>
+                            <li class="cs-feature"><svg class="cs-check" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>[Included feature]</span></li>
+                    </ul>
+                    <a href="#" class="cs-button-outline cs-plan-button">Get Started</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--                     FAQ                      -->
+    <!-- ============================================ -->
+
+    <section id="faq">
+        <div class="cs-container">
+            <div class="cs-content">
+                <h2 class="cs-title">
+                    <span class="cs-line">Questions?</span>
+                    <span class="cs-line cs-accent">Answered.</span>
+                </h2>
+                <p class="cs-text">
+                    Everything you need to know before your first session. Still unsure? Reach out and we’ll help you find the right fit.
+                </p>
+                <a href="#cs-footer-275" class="cs-button-solid">Contact Us</a>
+            </div>
+            <!-- Accordion: one answer open at a time (name="faq") -->
+            <div class="cs-faq-group">
+                <details class="cs-faq-item" name="faq" open>
+                    <summary class="cs-question">
+                        <span class="cs-question-text">How do I book a class?</span>
+                        <span class="cs-plus" aria-hidden="true"></span>
+                    </summary>
+                    <div class="cs-answer">
+                        <p>We’re excited to have you try out our boxing classes! To book your free trial, simply <a href="#">click the link on our website</a> and fill in the required information to claim your one-week free trial. One of our team members will then contact you to answer any questions and reserve your spot in our schedule.</p>
+                    </div>
+                </details>
+                <details class="cs-faq-item" name="faq">
+                    <summary class="cs-question">
+                        <span class="cs-question-text">Do you accept walk-ins?</span>
+                        <span class="cs-plus" aria-hidden="true"></span>
+                    </summary>
+                    <div class="cs-answer">
+                        <p>Our gym operates on a booking-only basis for classes and training sessions to ensure a smooth experience for everyone. However, if you’d like to stop by to see the gym or learn more about our offerings, we’d love to meet you! Please <a href="#cs-footer-275">contact us</a> ahead of time to schedule a quick visit so we can give you the attention you deserve.</p>
+                    </div>
+                </details>
+                <details class="cs-faq-item" name="faq">
+                    <summary class="cs-question">
+                        <span class="cs-question-text">I don’t have any experience. Can I still join?</span>
+                        <span class="cs-plus" aria-hidden="true"></span>
+                    </summary>
+                    <div class="cs-answer">
+                        <p>Absolutely! Our <a href="/#training">boxing classes</a> are open to everyone, regardless of skill level. Our coaches specialize in working with beginners and will guide you through the basics of boxing at a comfortable pace. You’ll learn proper techniques, gain confidence, and get a great workout in a supportive, welcoming environment. No experience? No problem!</p>
+                    </div>
+                </details>
+                <details class="cs-faq-item" name="faq">
+                    <summary class="cs-question">
+                        <span class="cs-question-text">What if I reserved a spot and can’t make it?</span>
+                        <span class="cs-plus" aria-hidden="true"></span>
+                    </summary>
+                    <div class="cs-answer">
+                        <p>Life happens! If you can’t attend a class you’ve booked, please let us know as soon as possible so we can free up your spot for others. You can cancel or reschedule through our booking system or by <a href="#cs-footer-275">reaching out to us directly</a>. We kindly request 24 hours’ notice to keep our schedule running smoothly.</p>
+                    </div>
+                </details>
+                <details class="cs-faq-item" name="faq">
+                    <summary class="cs-question">
+                        <span class="cs-question-text">How are boxing classes structured?</span>
+                        <span class="cs-plus" aria-hidden="true"></span>
+                    </summary>
+                    <div class="cs-answer">
+                        <p>Each class is designed to keep you engaged, energized, and progressing toward your goals. We typically start with a dynamic warm-up to get your body ready, followed by skill-focused drills to develop technique and form. Next, we incorporate bag work, pad work, or partner exercises to practice those skills in action. The session ends with conditioning exercises and a cool-down to ensure a well-rounded workout.</p>
+                    </div>
+                </details>
+                <details class="cs-faq-item" name="faq">
+                    <summary class="cs-question">
+                        <span class="cs-question-text">What do I need to bring for my first visit?</span>
+                        <span class="cs-plus" aria-hidden="true"></span>
+                    </summary>
+                    <div class="cs-answer">
+                        <p>For your first visit, just bring yourself, comfortable workout clothes, and plenty of energy! We provide gloves and hand wraps for your initial session, so you’re all set to jump right in. Don’t forget a water bottle to stay hydrated and a small towel if you’d like. If you have your own gear, feel free to bring it along!</p>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+   
+{% endblock %}
